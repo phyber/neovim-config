@@ -38,27 +38,26 @@ local function keymap(mode, key, cmd, options)
     vim.api.nvim_set_keymap(mode, key, cmd, options)
 end
 
--- :inoremap
+local function imap(key, cmd, options)
+    keymap("i", key, cmd, options)
+end
+
 local function inoremap(key, cmd)
     local options = {
         noremap = true,
     }
 
-    keymap("i", key, cmd, options)
+    imap(key, cmd, options)
 end
 
--- :map
 local function map(key, cmd, options)
     keymap("", key, cmd, options)
 end
 
--- :nmap
 local function nmap(key, cmd, options)
     keymap("n", key, cmd, options)
 end
 
--- :nnoremap
--- We just wrap the nmap function and set the noremap option
 local function nnoremap(key, cmd)
     local options = {
         noremap = true,
@@ -76,6 +75,7 @@ return {
     nvim_has      = nvim_has,
 
     -- Key mapping
+    imap     = imap,
     inoremap = inoremap,
     map      = map,
     nmap     = nmap,
