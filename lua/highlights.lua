@@ -1,6 +1,7 @@
 -- Highlights
 vim.cmd([[
 function! SetHighlights() abort
+    " Colour the selection menus
     highlight Pmenu ctermbg=darkblue ctermfg=white gui=bold
     highlight PmenuSel ctermbg=grey ctermfg=black gui=bold
 
