@@ -66,13 +66,30 @@ local function nnoremap(key, cmd)
     nmap(key, cmd, options)
 end
 
+-- Autocmds
+local function create_augroups(groups)
+    for group, content in pairs(groups) do
+        vim.api.nvim_command("augroup " .. group)
+        vim.api.nvim_command("autocmd!")
+
+        for _, command in pairs(content) do
+            local cmd = ("autocmd %s"):format(command)
+
+            vim.api.nvim_command(cmd)
+        end
+
+        vim.api.nvim_command("augroup END")
+    end
+end
+
 -- Exposed API
 return {
     -- Helpers
-    is_dir        = is_dir,
-    is_executable = is_executable,
-    mkdir         = mkdir,
-    nvim_has      = nvim_has,
+    create_augroups = create_augroups,
+    is_dir          = is_dir,
+    is_executable   = is_executable,
+    mkdir           = mkdir,
+    nvim_has        = nvim_has,
 
     -- Key mapping
     imap     = imap,
