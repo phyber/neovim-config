@@ -29,6 +29,13 @@ local function nvim_has(feature)
     return vim.fn.has(feature) == 1
 end
 
+-- Check if a plugin is loaded
+local function plugin_loaded(name)
+    local plugin = packer_plugins[name]
+
+    return plugin and plugin.loaded
+end
+
 -- Key remapping helpers
 local function keymap(mode, key, cmd, options)
     if not options then
@@ -90,6 +97,7 @@ return {
     is_executable   = is_executable,
     mkdir           = mkdir,
     nvim_has        = nvim_has,
+    plugin_loaded   = plugin_loaded,
 
     -- Key mapping
     imap     = imap,
