@@ -38,10 +38,10 @@ else
         use "ap/vim-buftabline"
         use "editorconfig/editorconfig-vim"
         use "godlygeek/tabular"
-        use "mhinz/vim-signify"
+        --use "mhinz/vim-signify"
         use "neomake/neomake"
         use "ntpeters/vim-better-whitespace"
-        use "tpope/vim-fugitive"
+        --use "tpope/vim-fugitive"
         use "wbthomason/packer.nvim"
         use "Yggdroot/indentLine"
 
@@ -68,6 +68,14 @@ else
         use {
             "hashivim/vim-terraform",
             ft = "terraform",
+        }
+
+        use {
+            "lewis6991/gitsigns.nvim",
+            requires = "nvim-lua/plenary.nvim",
+            config = function()
+                require("gitsigns").setup()
+            end,
         }
 
         use {
@@ -106,8 +114,8 @@ else
 
         use {
             "nsf/gocode",
-            rtp = "vim",
             ft = "go",
+            rtp = "vim",
         }
 
         use {
