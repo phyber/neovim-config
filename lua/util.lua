@@ -27,12 +27,12 @@ local function mkdir(path, mode, no_parents)
         Linux = "0o700",
     }
 
-    -- If the above table didn't contain our OS, default to 0700 and hope its
-    -- sensible.
-    local mode = modes[jit.os] or "0700"
+    -- Attempt to use a provided mode, the default from the above table, or
+    -- finally, 0700.
+    local final_mode = mode or modes[jit.os] or "0700"
     local parents = no_parents and "" or "p"
 
-    vim.fn.mkdir(path, parents, mode)
+    vim.fn.mkdir(path, parents, final_mode)
 end
 
 -- Return true if a feature is present
