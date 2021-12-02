@@ -150,21 +150,19 @@ else
 
         -- Theme
         use {
-            "fatih/molokai",
+            "tanvirtin/monokai.nvim",
             config = function()
-                vim.g.rehash256 = 1
-                vim.cmd([[
-                    set background=dark
-                    colorscheme molokai
-                ]])
+                require("monokai")
+                vim.cmd("colorscheme monokai")
             end,
         }
     end
 
     local config = {
+        auto_clean = false,
         display = {
             open_fn = require("packer.util").float,
-        }
+        },
     }
 
     local packer = require("packer")
