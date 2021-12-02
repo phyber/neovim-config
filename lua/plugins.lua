@@ -37,7 +37,7 @@ else
         -- Plugins we're not passing options to
         use "ap/vim-buftabline"
         use "editorconfig/editorconfig-vim"
-        use "godlygeek/tabular"
+        --use "godlygeek/tabular"
         --use "mhinz/vim-signify"
         use "neomake/neomake"
         use "ntpeters/vim-better-whitespace"
@@ -46,16 +46,19 @@ else
         use "Yggdroot/indentLine"
 
         -- Plugins we pass options too
+        -- TOML syntax highlighting
         use {
             "cespare/vim-toml",
             ft = "toml",
         }
 
+        -- Fish syntax highlighting
         use {
             "dag/vim-fish",
             ft = "fish",
         }
 
+        -- Go syntax highlighting and more
         use {
             "fatih/vim-go",
             ft = "go",
@@ -65,11 +68,13 @@ else
             end,
         }
 
+        -- Terraform syntax highlighting
         use {
             "hashivim/vim-terraform",
             ft = "terraform",
         }
 
+        -- Git diff status in the sidebar
         use {
             "lewis6991/gitsigns.nvim",
             requires = "nvim-lua/plenary.nvim",
@@ -80,6 +85,7 @@ else
 
         use {
             "majutsushi/tagbar",
+            disable = true,
             cmd = "Tagbar",
             config = function()
                 vim.g.tagbar_type_go = {
@@ -118,21 +124,25 @@ else
             rtp = "vim",
         }
 
+        -- Python syntax checking
         use {
             "nvie/vim-flake8",
             ft = "python",
         }
 
+        -- Rust syntax highlighting
         use {
             "rust-lang/rust.vim",
             ft = "rust",
         }
 
+        -- Lua syntax
         use {
             "tbastos/vim-lua",
             ft = "lua",
         }
 
+        -- Puppet syntax
         use {
             "voxpupuli/vim-puppet",
             ft = "puppet",
@@ -143,6 +153,7 @@ else
             ft = "go",
         }
 
+        -- Python indenting
         use {
             "Vimjas/vim-python-pep8-indent",
             ft = "python",
