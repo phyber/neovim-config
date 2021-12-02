@@ -1,4 +1,6 @@
 -- Highlights
+local util = require "util"
+
 vim.cmd([[
 function! SetHighlights() abort
     " Colour the selection menus
@@ -8,9 +10,10 @@ function! SetHighlights() abort
     " Don't highlight the whole line, only the line number
     highlight clear CursorLine
 endfunction
-
-augroup Highlights
-    autocmd!
-    autocmd ColorScheme * call SetHighlights()
-augroup END
 ]])
+
+util.create_augroups({
+    Highlights = {
+        {"ColorScheme", "*", "call SetHighlights()"},
+    }
+})
