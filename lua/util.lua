@@ -91,9 +91,21 @@ local function create_augroups(groups)
         vim.api.nvim_command("autocmd!")
 
         for _, command in pairs(content) do
-            local cmd = ("autocmd %s"):format(command)
+            local line
 
-            vim.api.nvim_command(cmd)
+            if type(command) == "table" then
+                -- {"Event", "Pattern", "Command"} style autocommands.
+                local event = command[1]
+                local pattern = command[2]
+                local cmd = command[3]
+
+                line = ("autocmd %s %s %s"):format(event, pattern, cmd)
+            else
+                -- "Event Pattern Command style autocommands.
+                line = ("autocmd %s"):format(command)
+            end
+
+            vim.api.nvim_command(line)
         end
 
         vim.api.nvim_command("augroup END")
