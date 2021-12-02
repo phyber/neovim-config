@@ -18,7 +18,18 @@ end
 -- The caller should check for existance of the directories before calling
 -- this function.
 local function mkdir(path, mode, no_parents)
-    local mode = mode and mode or "0o700"
+    -- FreeBSD doesn't seem to accept the octal literal here, possibly due to
+    -- the underlying mkdir stuff.
+    local modes = {
+        -- Operating systems here are listed by the names that `jit.os`
+        -- returns.
+        BSD = "0700",
+        Linux = "0o700",
+    }
+
+    -- If the above table didn't contain our OS, default to 0700 and hope its
+    -- sensible.
+    local mode = modes[jit.os] or "0700"
     local parents = no_parents and "" or "p"
 
     vim.fn.mkdir(path, parents, mode)
