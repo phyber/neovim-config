@@ -187,19 +187,23 @@ else
                 -- point.
                 local monokai = require("monokai")
                 local palette = monokai.classic
-                local molokai_comment = "#8a8a8a"
-                local molokai_white = "#d0d0d0"
-                local molokai_grey = "#1c1c1c"
+
+                -- Colours that are close to molokai
+                local molokai = {
+                    grey = "#1c1c1c",
+                    special_comment = "#8a8a8a",
+                    white = "#d0d0d0",
+                }
 
                 monokai.setup({
                     custom_hlgroups = {
                         Normal = {
-                            fg = molokai_white,
-                            bg = molokai_grey,
+                            fg = molokai.white,
+                            bg = molokai.grey,
                         },
                         CursorLineNr = {
                             fg = palette.orange,
-                            bg = molokai_grey,
+                            bg = molokai.grey,
                         },
                         Delimiter = {
                             fg = palette.grey,
@@ -216,10 +220,10 @@ else
                         },
                         SignColumn = {
                             fg = palette.white,
-                            bg = molokai_grey,
+                            bg = molokai.grey,
                         },
                         SpecialComment = {
-                            fg = molokai_comment,
+                            fg = molokai.special_comment,
                             style = "bold",
                         },
                         StatusLine = {
