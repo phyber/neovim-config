@@ -21,3 +21,17 @@ util.nnoremap("<Leader>fb", ":Telescope buffers<CR>")
 util.nnoremap("<Leader>ff", ":Telescope find_files<CR>")
 util.nnoremap("<Leader>fg", ":Telescope live_grep<CR>")
 util.nnoremap("<Leader>fh", ":Telescope help_tags<CR>")
+
+-- This function and keybind help with learning what syntax highlighting is
+-- being applied to an element under the cursor.
+vim.cmd([[
+function! SynStack()
+    if !exists("*synstack")
+        return
+    endif
+
+    echo map(synstack(line("."), col(".")), 'synIDattr(v:val, "name")')
+endfunction
+]])
+
+util.nmap("<Leader>z", ":call SynStack()<CR>")
