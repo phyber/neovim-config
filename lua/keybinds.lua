@@ -4,10 +4,6 @@ local util = require "util"
 util.inoremap("<C-U>", "<C-G>u<C-U>")
 util.map("Q", "gq")
 
--- Ctrl-Backspace closes the buffer
--- When viewing on GitHub this looks empty, but there is a ^H here.
-util.nmap("", ":bdelete<CR>")
-
 -- Toggle line numbers
 util.nmap("<F11>", ":set invnumber<CR> :set list!<CR>")
 
@@ -16,6 +12,9 @@ util.nnoremap("<C-Left>", ":bprevious<CR>")
 
 -- Next buffer
 util.nnoremap("<C-Right>", ":bnext<CR>")
+
+-- Closes the buffer
+util.nnoremap("<Leader><BS>", ":bdelete<CR>")
 
 -- Telescope fuzzy finder
 util.nnoremap("<Leader>fb", ":Telescope buffers<CR>")
