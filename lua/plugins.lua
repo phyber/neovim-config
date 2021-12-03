@@ -167,15 +167,75 @@ else
 
         -- Theme
         use {
+            -- Enabled but not used, mostly for comparison at the moment when
+            -- monokai doesn't quite match what we want.
+            "fatih/molokai",
+            config = function()
+                vim.g.rehash256 = 1
+                --vim.cmd([[
+                --    set background=dark
+                --    colorscheme molokai
+                --]])
+            end,
+        }
+
+        use {
             "tanvirtin/monokai.nvim",
             config = function()
-                require("monokai")
+                -- We mostly turn the theme into molokai here.
+                -- We should probably just create a real molokai theme at some
+                -- point.
+                local monokai = require("monokai")
+                local palette = monokai.classic
+                local molokai_comment = "#8a8a8a"
+                local molokai_white = "#d0d0d0"
+                local molokai_grey = "#1c1c1c"
+
+                monokai.setup({
+                    custom_hlgroups = {
+                        Normal = {
+                            fg = molokai_white,
+                            bg = molokai_grey,
+                        },
+                        CursorLineNr = {
+                            fg = palette.orange,
+                            bg = molokai_grey,
+                        },
+                        Delimiter = {
+                            fg = palette.grey,
+                        },
+                        Identifier = {
+                            fg = palette.orange,
+                        },
+                        Include = {
+                            fg = palette.green,
+                        },
+                        LineNr = {
+                            fg = palette.base5,
+                            bg = molokai_grey,
+                        },
+                        SignColumn = {
+                            fg = palette.white,
+                            bg = molokai_grey,
+                        },
+                        SpecialComment = {
+                            fg = molokai_comment,
+                            style = "bold",
+                        },
+                        StatusLine = {
+                            fg = palette.base7,
+                            bg = molokai_grey,
+                        },
+                    },
+                })
+
                 vim.cmd("colorscheme monokai")
             end,
         }
     end
 
     local config = {
+        auto_clean = false,
         display = {
             open_fn = require("packer.util").float,
         },
