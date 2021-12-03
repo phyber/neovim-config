@@ -176,7 +176,6 @@ else
     end
 
     local config = {
-        auto_clean = false,
         display = {
             open_fn = require("packer.util").float,
         },
