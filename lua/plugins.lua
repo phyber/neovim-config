@@ -130,6 +130,12 @@ else
             ft = "python",
         }
 
+        -- Fuzzy finder
+        use {
+            "nvim-telescope/telescope.nvim",
+            requires = "nvim-lua/plenary.nvim",
+        }
+
         -- Rust syntax highlighting
         use {
             "rust-lang/rust.vim",

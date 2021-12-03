@@ -16,3 +16,9 @@ util.nnoremap("<C-Left>", ":bprevious<CR>")
 
 -- Next buffer
 util.nnoremap("<C-Right>", ":bnext<CR>")
+
+-- Telescope fuzzy finder
+util.nnoremap("<Leader>fb", ":Telescope buffers<CR>")
+util.nnoremap("<Leader>ff", ":Telescope find_files<CR>")
+util.nnoremap("<Leader>fg", ":Telescope live_grep<CR>")
+util.nnoremap("<Leader>fh", ":Telescope help_tags<CR>")
