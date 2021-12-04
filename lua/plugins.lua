@@ -35,7 +35,6 @@ else
     -- New plugins will require a :PackerSync
     local function plugins()
         -- Plugins we're not passing options to
-        use "ap/vim-buftabline"
         use "editorconfig/editorconfig-vim"
         --use "godlygeek/tabular"
         --use "mhinz/vim-signify"
@@ -52,6 +51,14 @@ else
             ft = "toml",
         }
 
+        -- Tab line
+        use {
+            "crispgm/nvim-tabline",
+            config = function()
+                require("tabline").setup({})
+            end,
+        }
+
         -- Fish syntax highlighting
         use {
             "dag/vim-fish",
@@ -65,6 +72,30 @@ else
             config = function()
                 vim.g.go_fmt_autosave = 1
                 vim.g.go_fmt_command = "goimports"
+            end,
+        }
+
+        -- Status bar
+        use {
+            "nvim-lualine/lualine.nvim",
+            config = function()
+                require("lualine").setup({
+                    options = {
+                        icons_enabled = false,
+                        theme = "material",
+
+                        -- No fancy separators, not all terminals have the
+                        -- rights fonts.
+                        component_separators = {
+                            left = nil,
+                            right = nil,
+                        },
+                        section_separators = {
+                            left = nil,
+                            right = nil,
+                        },
+                    },
+                })
             end,
         }
 
