@@ -69,7 +69,7 @@ else
         use {
             "fatih/vim-go",
             ft = "go",
-            config = function()
+            setup = function()
                 vim.g.go_fmt_autosave = 1
                 vim.g.go_fmt_command = "goimports"
             end,
@@ -118,7 +118,7 @@ else
             "majutsushi/tagbar",
             disable = true,
             cmd = "Tagbar",
-            config = function()
+            setup = function()
                 vim.g.tagbar_type_go = {
                     ctagsargs = "-sort -silent",
                     ctagsbin = "gotags",
@@ -202,11 +202,12 @@ else
             -- monokai doesn't quite match what we want.
             "fatih/molokai",
             config = function()
-                vim.g.rehash256 = 1
                 --vim.cmd([[
-                --    set background=dark
                 --    colorscheme molokai
                 --]])
+            end,
+            setup = function()
+                vim.g.rehash256 = 1
             end,
         }
 
