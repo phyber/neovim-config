@@ -249,6 +249,6 @@ else
 
     packer.startup({
         plugins,
-        config,
+        config = config,
     })
 end
