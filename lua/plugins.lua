@@ -35,14 +35,28 @@ else
     -- New plugins will require a :PackerSync
     local function plugins()
         -- Plugins we're not passing options to
+        -- Editor Config (https://editorconfig.org/)
         use "editorconfig/editorconfig-vim"
+
+        -- Help with tabular data
         --use "godlygeek/tabular"
-        --use "mhinz/vim-signify"
+
+        -- Neomake
         use "neomake/neomake"
+
+        -- Highlight extra whitespace
         use "ntpeters/vim-better-whitespace"
+
+        -- Use Git from vim
         --use "tpope/vim-fugitive"
+
+        -- Plugin manager
         use "wbthomason/packer.nvim"
-        use "Yggdroot/indentLine"
+
+        -- indent guide
+        use "glepnir/indent-guides.nvim"
+        --use "Yggdroot/indentLine"
+
 
         -- Plugins we pass options too
         -- TOML syntax highlighting
