@@ -262,7 +262,7 @@ else
                         },
                         LineNr = {
                             fg = palette.base5,
-                            bg = molokai_grey,
+                            bg = molokai.grey,
                         },
                         SignColumn = {
                             fg = palette.white,
@@ -274,7 +274,7 @@ else
                         },
                         StatusLine = {
                             fg = palette.base7,
-                            bg = molokai_grey,
+                            bg = molokai.grey,
                         },
                     },
                 })
@@ -284,17 +284,13 @@ else
         }
     end
 
-    local config = {
-        auto_clean = false,
-        display = {
-            open_fn = require("packer.util").float,
-        },
-    }
-
-    local packer = require("packer")
-
-    packer.startup({
+    require("packer").startup({
         plugins,
-        config = config,
+        config = {
+            auto_clean = false,
+            display = {
+                open_fn = require("packer.util").float,
+            },
+        },
     })
 end
