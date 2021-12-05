@@ -17,7 +17,8 @@ end
 --
 -- The caller should check for existance of the directories before calling
 -- this function.
-local function mkdir(path, mode, no_parents)
+local mkdir
+do
     -- FreeBSD doesn't seem to accept the octal literal here, possibly due to
     -- the underlying mkdir stuff.
     local modes = {
@@ -27,12 +28,16 @@ local function mkdir(path, mode, no_parents)
         Linux = "0o700",
     }
 
-    -- Attempt to use a provided mode, the default from the above table, or
-    -- finally, 0700.
-    local final_mode = mode or modes[jit.os] or "0700"
-    local parents = no_parents and "" or "p"
+    local jit_os = jit.os
 
-    vim.fn.mkdir(path, parents, final_mode)
+    mkdir = function(path, mode, no_parents)
+        -- Attempt to use a provided mode, the default from the above table, or
+        -- finally, 0700.
+        local final_mode = mode or modes[jit_os] or "0700"
+        local parents = no_parents and "" or "p"
+
+        fn.mkdir(path, parents, final_mode)
+    end
 end
 
 -- Return true if a feature is present
