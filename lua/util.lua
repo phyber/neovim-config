@@ -1,14 +1,17 @@
 -- Utils module
+local api = vim.api
+local fn = vim.fn
+
 -- We wrap a few functions to return proper booleans from them so callers don't
 -- have to bother with "== 1", etc.
 -- Return true if given path is a directory
 local function is_dir(path)
-    return vim.fn.isdirectory(path) == 1
+    return fn.isdirectory(path) == 1
 end
 
 -- Return true if given binary an be executed
 local function is_executable(binary)
-    return vim.fn.executable(binary) == 1
+    return fn.executable(binary) == 1
 end
 
 -- Creates a directory, mode and no_parents are optional.
@@ -42,7 +45,7 @@ end
 
 -- Return true if a feature is present
 local function nvim_has(feature)
-    return vim.fn.has(feature) == 1
+    return fn.has(feature) == 1
 end
 
 -- Check if a plugin is loaded
@@ -58,7 +61,7 @@ local function keymap(mode, key, cmd, options)
         options = {}
     end
 
-    vim.api.nvim_set_keymap(mode, key, cmd, options)
+    api.nvim_set_keymap(mode, key, cmd, options)
 end
 
 local function imap(key, cmd, options)
@@ -92,8 +95,8 @@ end
 -- Autocmds
 local function create_augroups(groups)
     for group, content in pairs(groups) do
-        vim.api.nvim_command("augroup " .. group)
-        vim.api.nvim_command("autocmd!")
+        api.nvim_command("augroup " .. group)
+        api.nvim_command("autocmd!")
 
         for _, command in pairs(content) do
             local line
@@ -110,10 +113,10 @@ local function create_augroups(groups)
                 line = ("autocmd %s"):format(command)
             end
 
-            vim.api.nvim_command(line)
+            api.nvim_command(line)
         end
 
-        vim.api.nvim_command("augroup END")
+        api.nvim_command("augroup END")
     end
 end
 
