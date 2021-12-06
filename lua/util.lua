@@ -14,6 +14,12 @@ local function is_executable(binary)
     return fn.executable(binary) == 1
 end
 
+-- Return true if the previous system command was successful (exit code 0)
+local function was_shell_success()
+    -- shell_error will be set to the exit code of the system command
+    return api.nvim_get_vvar("shell_error") == 0
+end
+
 -- Creates a directory, mode and no_parents are optional.
 -- By default will attempt to create parent directories if they don't exist and
 -- will create private (0700) directories if a mode isn't given.
@@ -120,10 +126,34 @@ local function create_augroups(groups)
     end
 end
 
+-- Git
+local git = {}
+do
+    git.cmds = {
+        base = "git",
+        clone = "git clone %s %s",
+    }
+
+    -- Clones a git repo from repo to dest
+    -- Returns false on failure, true on success
+    function git:clone(repo, dest)
+        if not is_executable(self.cmds.base) then
+            print("git not found, cannot continue")
+
+            return false
+        end
+
+        fn.system(self.cmds.clone:format(repo, dest))
+
+        return was_shell_success()
+    end
+end
+
 -- Exposed API
 return {
     -- Helpers
     create_augroups = create_augroups,
+    git             = git,
     is_dir          = is_dir,
     is_executable   = is_executable,
     mkdir           = mkdir,
