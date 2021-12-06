@@ -17,14 +17,10 @@ end
 if not plugmgr_installed() then
     -- This needs to be called via :lua
     function InstallPlugMgr()
-        if not util.is_executable("git") then
-            print("git not found, cannot continue")
-
+        local success = util.git:clone(plugmgr.repo, plugmgr.path)
+        if not success then
             return
         end
-
-        local cmd = ("git clone %s %s"):format(plugmgr.repo, plugmgr.path)
-        vim.fn.system(cmd)
 
         print("Restart vim and run :PackerSync")
     end
