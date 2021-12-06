@@ -140,6 +140,10 @@ else
         }
 
         use {
+            "neovim/nvim-lspconfig",
+        }
+
+        use {
             "nsf/gocode",
             ft = "go",
             rtp = "vim",
