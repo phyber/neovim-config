@@ -15,9 +15,11 @@ end
 -- If the plugmgr isn't installed, create a function that can be used to
 -- install it and notify the user to perform a :PackerSync
 if not plugmgr_installed() then
+    local git = require "git"
+
     -- This needs to be called via :lua
     function InstallPlugMgr()
-        local success = util.git:clone(plugmgr.repo, plugmgr.path)
+        local success = git:clone(plugmgr.repo, plugmgr.path)
         if not success then
             return
         end
