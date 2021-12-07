@@ -1,6 +1,6 @@
 -- Git module
-local fn = vim.fn
 local util = require "util"
+local fn = vim.fn
 
 local git = {}
 
