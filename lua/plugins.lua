@@ -59,6 +59,7 @@ else
         use {
             "cespare/vim-toml",
             ft = "toml",
+            opt = true,
         }
 
         -- Tab line
@@ -73,12 +74,14 @@ else
         use {
             "dag/vim-fish",
             ft = "fish",
+            opt = true,
         }
 
         -- Go syntax highlighting and more
         use {
             "fatih/vim-go",
             ft = "go",
+            opt = true,
             setup = function()
                 vim.g.go_fmt_autosave = 1
                 vim.g.go_fmt_command = "goimports"
@@ -106,6 +109,7 @@ else
         use {
             "hashivim/vim-terraform",
             ft = "terraform",
+            opt = true,
         }
 
         -- Git diff status in the sidebar
@@ -119,8 +123,9 @@ else
 
         use {
             "majutsushi/tagbar",
-            disable = true,
             cmd = "Tagbar",
+            disable = true,
+            opt = true,
             setup = function()
                 vim.g.tagbar_type_go = {
                     ctagsargs = "-sort -silent",
@@ -159,6 +164,7 @@ else
         use {
             "nsf/gocode",
             ft = "go",
+            opt = true,
             rtp = "vim",
         }
 
@@ -166,6 +172,7 @@ else
         use {
             "nvie/vim-flake8",
             ft = "python",
+            opt = true,
         }
 
         -- Status bar
@@ -195,6 +202,8 @@ else
         -- Fuzzy finder
         use {
             "nvim-telescope/telescope.nvim",
+            cmd = "Telescope",
+            opt = true,
             requires = "nvim-lua/plenary.nvim",
         }
 
@@ -202,29 +211,34 @@ else
         use {
             "rust-lang/rust.vim",
             ft = "rust",
+            opt = true,
         }
 
         -- Lua syntax
         use {
             "tbastos/vim-lua",
             ft = "lua",
+            opt = true,
         }
 
         -- Puppet syntax
         use {
             "voxpupuli/vim-puppet",
             ft = "puppet",
+            opt = true,
         }
 
         use {
             "Blackrush/vim-gocode",
             ft = "go",
+            opt = true,
         }
 
         -- Python indenting
         use {
             "Vimjas/vim-python-pep8-indent",
             ft = "python",
+            opt = true,
         }
 
         -- Theme
