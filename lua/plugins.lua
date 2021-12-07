@@ -52,9 +52,7 @@ else
         use "wbthomason/packer.nvim"
 
         -- indent guide
-        use "glepnir/indent-guides.nvim"
         --use "Yggdroot/indentLine"
-
 
         -- Plugins we pass options too
         -- TOML syntax highlighting
@@ -84,6 +82,23 @@ else
             setup = function()
                 vim.g.go_fmt_autosave = 1
                 vim.g.go_fmt_command = "goimports"
+            end,
+        }
+
+        use {
+            "glepnir/indent-guides.nvim",
+            config = function()
+                -- The default colours here hid the cursor when it was over an
+                -- indent guide.
+                local guide_colours = {
+                    bg = "#23272e",
+                    fg = "#d0d0d0",
+                }
+
+                require("indent_guides").setup({
+                    even_colors = guide_colours,
+                    odd_colors = guide_colours,
+                })
             end,
         }
 
