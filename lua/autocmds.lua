@@ -18,10 +18,10 @@ util.create_augroups({
         {"BufWritePost", "*", "Neomake"},
 
         -- When editing a file, always jump to the last known cursor position.
-        -- Don't do it when the position is invalid or when inside an event hander
-        -- (happens when dropping a file on gvim).
-        -- Also don't do it when the mark is in the first line, that i the default
-        -- position when opening a file
+        -- Don't do it when the position is invalid or when inside an event
+        -- hander (happens when dropping a file on gvim).
+        -- Also don't do it when the mark is in the first line, that is the
+        -- default position when opening a file
         {
             "BufReadPost",
             "*",
