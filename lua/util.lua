@@ -15,7 +15,7 @@ local function is_executable(binary)
 end
 
 -- Return true if the previous system command was successful (exit code 0)
-local function was_shell_success()
+local function is_exit_success()
     -- shell_error will be set to the exit code of the system command
     return api.nvim_get_vvar("shell_error") == 0
 end
@@ -135,7 +135,7 @@ return {
     mkdir             = mkdir,
     nvim_has          = nvim_has,
     plugin_loaded     = plugin_loaded,
-    was_shell_success = was_shell_success,
+    is_exit_success   = is_exit_success,
 
     -- Key mapping
     imap     = imap,

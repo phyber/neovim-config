@@ -20,7 +20,7 @@ function git:clone(repo, dest)
 
     fn.system(self.cmds.clone:format(repo, dest))
 
-    return util.was_shell_success()
+    return util.is_exit_success()
 end
 
 -- Exposed API
