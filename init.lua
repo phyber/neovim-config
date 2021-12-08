@@ -68,7 +68,6 @@ vim.o.undofile = true
 -- of them if they don't exist yet.
 do
     local basepath_fmt = vim.fn.stdpath("config") .. "/scratch/%s"
-    local nvim06 = util.nvim_has("nvim-0.6")
 
     local tmpdirs = {
         backupdir = basepath_fmt:format("backup"),
@@ -77,11 +76,8 @@ do
     }
 
     for dirtype, path in pairs(tmpdirs) do
-        -- nvim < 0.6 doesn't create all of these directories automatically
-        if not nvim06 then
-            if not util.is_dir(path) then
-                util.mkdir(path)
-            end
+        if not util.is_dir(path) then
+            util.mkdir(path)
         end
 
         -- The actual setting
