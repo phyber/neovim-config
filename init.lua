@@ -1,5 +1,7 @@
 -- nvim configuration
 local util = require "util"
+local vim = vim
+local fn = vim.fn
 
 -- Allow backspacing over everything in insert mode
 vim.o.backspace = "indent,eol,start"
@@ -67,7 +69,7 @@ vim.o.undofile = true
 -- This handles setting of the tmp, backup, and undo directories and creation
 -- of them if they don't exist yet.
 do
-    local basepath_fmt = vim.fn.stdpath("config") .. "/scratch/%s"
+    local basepath_fmt = fn.stdpath("config") .. "/scratch/%s"
 
     local tmpdirs = {
         backupdir = basepath_fmt:format("backup"),
