@@ -9,7 +9,7 @@ local plugmgr = {
 
 -- Checks if the plugmgr is installed by checking for its install directory
 local function plugmgr_installed()
-    return util.is_dir(plugmgr.path)
+    return util.is_directory(plugmgr.path)
 end
 
 -- If the plugmgr isn't installed, create a function that can be used to

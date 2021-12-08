@@ -5,7 +5,7 @@ local fn = vim.fn
 -- We wrap a few functions to return proper booleans from them so callers don't
 -- have to bother with "== 1", etc.
 -- Return true if given path is a directory
-local function is_dir(path)
+local function is_directory(path)
     return fn.isdirectory(path) == 1
 end
 
@@ -130,7 +130,7 @@ end
 return {
     -- Helpers
     create_augroups   = create_augroups,
-    is_dir            = is_dir,
+    is_directory      = is_directory,
     is_executable     = is_executable,
     mkdir             = mkdir,
     nvim_has          = nvim_has,

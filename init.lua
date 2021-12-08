@@ -78,7 +78,7 @@ do
     }
 
     for dirtype, path in pairs(tmpdirs) do
-        if not util.is_dir(path) then
+        if not util.is_directory(path) then
             util.mkdir(path)
         end
 
