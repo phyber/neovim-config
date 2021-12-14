@@ -72,12 +72,14 @@ do
     local basepath_fmt = fn.stdpath("config") .. "/scratch/%s"
 
     local tmpdirs = {
-        backupdir = basepath_fmt:format("backup"),
-        directory = basepath_fmt:format("tmp"),
-        undodir = basepath_fmt:format("undo"),
+        backupdir = "backup",
+        directory = "tmp",
+        undodir = "undo",
     }
 
-    for dirtype, path in pairs(tmpdirs) do
+    for dirtype, dir in pairs(tmpdirs) do
+        local path = basepath_fmt:format(dir)
+
         if not util.is_directory(path) then
             util.mkdir(path)
         end
