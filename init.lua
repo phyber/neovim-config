@@ -87,6 +87,9 @@ do
     end
 end
 
+-- Add global inspect function
+_G.inspect = util.inspect
+
 -- Load other config segments
 require "plugins"
 require "autocmds"

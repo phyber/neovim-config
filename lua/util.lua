@@ -126,8 +126,16 @@ local function create_augroups(groups)
     end
 end
 
+-- Debugging assistance
+local function inspect(...)
+    print(vim.inspect(...))
+end
+
 -- Exposed API
 return {
+    -- Debugging
+    inspect = inspect,
+
     -- Helpers
     create_augroups   = create_augroups,
     is_directory      = is_directory,
