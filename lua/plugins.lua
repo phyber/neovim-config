@@ -31,8 +31,10 @@ if not plugmgr_installed() then
 else
     -- Any changes here will require running at least :PackerCompile
     -- New plugins will require a :PackerSync
+    --
+    -- We attempt to keep plugins alphabetised, case-insensitively.
+    -- Plugins we don't pass options to appear before plugins with options.
     local function plugins()
-        -- Plugins we're not passing options to
         -- Editor Config (https://editorconfig.org/)
         use "editorconfig/editorconfig-vim"
 
@@ -41,6 +43,9 @@ else
 
         -- Neomake
         use "neomake/neomake"
+
+        -- Language Server Protocol config
+        use "neovim/nvim-lspconfig"
 
         -- Highlight extra whitespace
         use "ntpeters/vim-better-whitespace"
@@ -53,6 +58,13 @@ else
 
         -- indent guide
         --use "Yggdroot/indentLine"
+
+        -- Gocode
+        use {
+            "Blackrush/vim-gocode",
+            ft = "go",
+            opt = true,
+        }
 
         -- Plugins we pass options too
         -- TOML syntax highlighting
@@ -158,10 +170,6 @@ else
         }
 
         use {
-            "neovim/nvim-lspconfig",
-        }
-
-        use {
             "nsf/gocode",
             ft = "go",
             opt = true,
@@ -247,12 +255,6 @@ else
         use {
             "voxpupuli/vim-puppet",
             ft = "puppet",
-            opt = true,
-        }
-
-        use {
-            "Blackrush/vim-gocode",
-            ft = "go",
             opt = true,
         }
 
