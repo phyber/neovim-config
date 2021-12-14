@@ -207,6 +207,28 @@ else
             requires = "nvim-lua/plenary.nvim",
         }
 
+        -- Treesitter
+        -- Remember to install parsers with :TSInstall <language>, check what's
+        -- already installed with :TSInstallInfo
+        use {
+            "nvim-treesitter/nvim-treesitter",
+            -- Load after the theme to ensure it doesn't clobber any highlights
+            -- configured by treesitter.
+            after = "monokai.nvim",
+            config = function()
+                require("nvim-treesitter.configs").setup({
+                    -- Enable p00f/nvim-ts-rainbow
+                    rainbow = {
+                        enable = true,
+                        extended_mode = false,
+                    },
+                })
+            end,
+            requires = {
+                "p00f/nvim-ts-rainbow",
+            },
+        }
+
         -- Rust syntax highlighting
         use {
             "rust-lang/rust.vim",
