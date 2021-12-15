@@ -220,11 +220,27 @@ else
         -- already installed with :TSInstallInfo
         use {
             "nvim-treesitter/nvim-treesitter",
-            -- Load after the theme to ensure it doesn't clobber any highlights
-            -- configured by treesitter.
-            after = "monokai.nvim",
             config = function()
                 require("nvim-treesitter.configs").setup({
+                    highlight = {
+                        enable = true,
+
+                        -- We're also passed the bufnr as an argument here, but
+                        -- we don't need that.
+                        disable = function(lang)
+                            -- We only want to be enabled for specific
+                            -- languages, but Treesitter makes this a bit of a
+                            -- chore.
+                            local enabled = {
+                                markdown = true,
+                            }
+
+                            local disabled = not enabled[lang]
+
+                            return disabled
+                        end,
+                    },
+
                     -- Enable p00f/nvim-ts-rainbow
                     rainbow = {
                         enable = true,
