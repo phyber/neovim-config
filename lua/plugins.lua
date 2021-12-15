@@ -221,6 +221,14 @@ else
         use {
             "nvim-treesitter/nvim-treesitter",
             config = function()
+                -- We only want to be enabled for specific languages, but
+                -- Treesitter makes this a bit of a chore.
+                -- This table will be checked in the highlight.disable
+                -- function.
+                local highlight_ft_enabled = {
+                    markdown = true,
+                }
+
                 require("nvim-treesitter.configs").setup({
                     highlight = {
                         enable = true,
@@ -228,14 +236,7 @@ else
                         -- We're also passed the bufnr as an argument here, but
                         -- we don't need that.
                         disable = function(lang)
-                            -- We only want to be enabled for specific
-                            -- languages, but Treesitter makes this a bit of a
-                            -- chore.
-                            local enabled = {
-                                markdown = true,
-                            }
-
-                            local disabled = not enabled[lang]
+                            local disabled = not highlight_ft_enabled[lang]
 
                             return disabled
                         end,
