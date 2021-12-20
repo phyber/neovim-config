@@ -319,6 +319,10 @@ else
                             fg = molokai.white,
                             bg = molokai.grey,
                         },
+                        Constant = {
+                            fg = "#ae81ff",
+                            style = "bold",
+                        },
                         CursorLineNr = {
                             fg = palette.orange,
                             bg = molokai.grey,
@@ -336,9 +340,18 @@ else
                             fg = palette.base5,
                             bg = molokai.grey,
                         },
+                        Macro = {
+                            fg = "#c4be89",
+                            style = "italic",
+                        },
                         SignColumn = {
                             fg = palette.white,
                             bg = molokai.grey,
+                        },
+                        Special = {
+                            fg = "#66d9ef",
+                            bg = "bg",
+                            style = "italic",
                         },
                         SpecialComment = {
                             fg = molokai.special_comment,
@@ -347,6 +360,13 @@ else
                         StatusLine = {
                             fg = palette.base7,
                             bg = molokai.grey,
+                        },
+                        StorageClass = {
+                            fg = "#fd971f",
+                            style = "italic",
+                        },
+                        String = {
+                            fg = "#e6db74",
                         },
                     },
                 })
