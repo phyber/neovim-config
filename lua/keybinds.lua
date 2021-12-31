@@ -1,4 +1,5 @@
 -- Key bindings
+-- Plugin specific keybinds are configured with that plugin in plugins.lua
 local util = require "util"
 
 util.inoremap("<C-U>", "<C-G>u<C-U>")
@@ -15,12 +16,6 @@ util.nnoremap("<C-Right>", ":bnext<CR>")
 
 -- Closes the buffer
 util.nnoremap("<Leader><BS>", ":bdelete<CR>")
-
--- Telescope fuzzy finder
-util.nnoremap("<Leader>fb", ":Telescope buffers<CR>")
-util.nnoremap("<Leader>ff", ":Telescope find_files<CR>")
-util.nnoremap("<Leader>fg", ":Telescope live_grep<CR>")
-util.nnoremap("<Leader>fh", ":Telescope help_tags<CR>")
 
 -- This function and keybind help with learning what syntax highlighting is
 -- being applied to an element under the cursor.

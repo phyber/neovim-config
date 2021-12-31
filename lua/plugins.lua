@@ -1,4 +1,6 @@
 -- Plugins
+-- This file loads and configures plugins. It may also configure keybindings
+-- for them as it makes sense to do it here if/when the plugins lo.
 local util = require "util"
 
 -- Settings
@@ -210,9 +212,31 @@ else
         -- Fuzzy finder
         use {
             "nvim-telescope/telescope.nvim",
-            cmd = "Telescope",
             opt = true,
             requires = "nvim-lua/plenary.nvim",
+            config = function()
+                local util = require "util"
+                local keys = {
+                    fb = "buffers",
+                    ff = "find_files",
+                    fg = "live_grep",
+                    fh = "help_tags",
+                }
+
+                local key = "<Leader>%s"
+                local command = ":Telescope %s<CR>"
+
+                for combo, cmd in pairs(keys) do
+                    util.nnoremap(key:format(combo), command:format(cmd))
+                end
+            end,
+            -- Plugin is only loaded when any of these keys are pressed.
+            keys = {
+                {"n", "<Leader>fb"},
+                {"n", "<Leader>ff"},
+                {"n", "<Leader>fg"},
+                {"n", "<Leader>fh"},
+            },
         }
 
         -- Treesitter
