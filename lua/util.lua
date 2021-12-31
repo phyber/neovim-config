@@ -101,7 +101,7 @@ end
 -- Autocmds
 local function create_augroups(groups)
     for group, content in pairs(groups) do
-        api.nvim_command("augroup " .. group)
+        api.nvim_command(("augroup %s"):format(group))
         api.nvim_command("autocmd!")
 
         for _, command in pairs(content) do
