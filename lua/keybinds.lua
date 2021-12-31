@@ -17,6 +17,10 @@ util.nnoremap("<C-Right>", ":bnext<CR>")
 -- Closes the buffer
 util.nnoremap("<Leader><BS>", ":bdelete<CR>")
 
+-- Disable macro recording, I never use it but frequently trigger it
+-- accidentally
+util.nmap("q", "<Nop>")
+
 -- This function and keybind help with learning what syntax highlighting is
 -- being applied to an element under the cursor.
 vim.cmd([[
