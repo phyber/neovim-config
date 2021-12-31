@@ -214,17 +214,23 @@ else
             "nvim-telescope/telescope.nvim",
             opt = true,
             requires = "nvim-lua/plenary.nvim",
+            cond = function()
+                local util = require "util"
+
+                return util.nvim_has("nvim-0.6")
+            end,
             config = function()
                 local util = require "util"
+
+                local key = "<Leader>%s"
+                local command = ":Telescope %s<CR>"
+
                 local keys = {
                     fb = "buffers",
                     ff = "find_files",
                     fg = "live_grep",
                     fh = "help_tags",
                 }
-
-                local key = "<Leader>%s"
-                local command = ":Telescope %s<CR>"
 
                 for combo, cmd in pairs(keys) do
                     util.nnoremap(key:format(combo), command:format(cmd))
