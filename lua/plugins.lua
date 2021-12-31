@@ -250,6 +250,12 @@ else
         -- already installed with :TSInstallInfo
         use {
             "nvim-treesitter/nvim-treesitter",
+            run = ":TSUpdate",
+            cond = function()
+                local util = require "util"
+
+                return util.nvim_has("nvim-0.6")
+            end,
             config = function()
                 -- We only want to be enabled for specific languages, but
                 -- Treesitter makes this a bit of a chore.
