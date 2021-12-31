@@ -27,7 +27,11 @@ util.create_augroups({
             "*",
             -- Multiline enclosing here to prevent special treatment of various
             -- characters.
-            [[if line("'\"") > 1 && line("'\"") < line("$") | exe "normal! g`\"" | endif]],
+            [[
+            if line("'\"") > 1 && line("'\"") < line("$") |
+                exe "normal! g`\"" |
+            endif
+            ]],
         },
     }
 })
