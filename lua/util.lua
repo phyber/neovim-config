@@ -2,6 +2,18 @@
 local api = vim.api
 local fn = vim.fn
 
+-- Returns true if the given item is empty.
+-- See ":help empty" for what consitutes empty.
+local function empty(item)
+    return fn.empty(item) == 1
+end
+
+-- the Vim API has no direct way to check that a path exists, so we work around
+-- that by checking for an empty glob.
+local function path_exists(path)
+    return not empty(fn.glob(path))
+end
+
 -- We wrap a few functions to return proper booleans from them so callers don't
 -- have to bother with "== 1", etc.
 -- Return true if given path is a directory
@@ -12,6 +24,13 @@ end
 -- Return true if given binary an be executed
 local function is_executable(binary)
     return fn.executable(binary) == 1
+end
+
+-- Return true if a given path is a file.
+-- We can't just check for "not is_directory" as that would also be true when
+-- a path doesn't exist, we have to specifically test for a path existing.
+local function is_file(path)
+    return path_exists(path) and not is_directory(path)
 end
 
 -- Return true if the previous system command was successful (exit code 0)
@@ -136,6 +155,7 @@ return {
     create_augroups   = create_augroups,
     is_directory      = is_directory,
     is_executable     = is_executable,
+    is_file           = is_file,
     mkdir             = mkdir,
     nvim_has          = nvim_has,
     plugin_loaded     = plugin_loaded,
