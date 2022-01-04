@@ -109,13 +109,9 @@ local function create_augroups(groups)
 
             if type(command) == "table" then
                 -- {"Event", "Pattern", "Command"} style autocommands.
-                local event = command[1]
-                local pattern = command[2]
-                local cmd = command[3]
-
-                line = ("autocmd %s %s %s"):format(event, pattern, cmd)
+                line = ("autocmd %s %s %s"):format(unpack(command))
             else
-                -- "Event Pattern Command style autocommands.
+                -- "Event Pattern Command" style autocommands.
                 line = ("autocmd %s"):format(command)
             end
 
