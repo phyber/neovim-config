@@ -1,6 +1,8 @@
 -- Highlights
 local util = require "util"
 
+-- Once vim.ap.nvim_set_hl supports namespace 0 (global highlight) we should be
+-- able to replace this with Lua.
 vim.cmd([[
 function! SetHighlights() abort
     " Colour the selection menus
