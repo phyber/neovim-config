@@ -5,14 +5,14 @@ local fn = vim.fn
 local git = {}
 
 git.cmds = {
-    base = "git",
+    git = "git",
     clone = "git clone %s %s",
 }
 
 -- Clones a git repo from repo to dest
 -- Returns false on failure, true on success
 function git:clone(repo, dest)
-    if not util.is_executable(self.cmds.base) then
+    if not util.is_executable(self.cmds.git) then
         print("git not found, cannot continue")
 
         return false
