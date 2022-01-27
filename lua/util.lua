@@ -152,14 +152,14 @@ return {
     inspect = inspect,
 
     -- Helpers
-    create_augroups   = create_augroups,
-    is_directory      = is_directory,
-    is_executable     = is_executable,
-    is_file           = is_file,
-    mkdir             = mkdir,
-    nvim_has          = nvim_has,
-    plugin_loaded     = plugin_loaded,
-    is_exit_success   = is_exit_success,
+    create_augroups = create_augroups,
+    is_directory    = is_directory,
+    is_executable   = is_executable,
+    is_exit_success = is_exit_success,
+    is_file         = is_file,
+    mkdir           = mkdir,
+    nvim_has        = nvim_has,
+    plugin_loaded   = plugin_loaded,
 
     -- Key mapping
     imap     = imap,
