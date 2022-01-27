@@ -46,9 +46,6 @@ else
         -- Neomake
         use "neomake/neomake"
 
-        -- Language Server Protocol config
-        use "neovim/nvim-lspconfig"
-
         -- Highlight extra whitespace
         use "ntpeters/vim-better-whitespace"
 
@@ -121,6 +118,22 @@ else
             ft = "terraform",
         }
 
+        -- Completion
+        use {
+            "hrsh7th/nvim-cmp",
+            disable = true,
+            config = function()
+                require("cmp").setup({
+                    sources = {
+                        { name = "nvim_lsp" },
+                    },
+                })
+            end,
+            requires = {
+                "hrsh7th/cmp-nvim-lsp",
+            },
+        }
+
         -- Git diff status in the sidebar
         use {
             "lewis6991/gitsigns.nvim",
@@ -163,6 +176,48 @@ else
                     },
                 }
             end,
+        }
+
+        -- Language Server Protocol config
+        use {
+            "neovim/nvim-lspconfig",
+            disable = true,
+            config = function()
+                local lspconfig = require("lspconfig")
+
+                -- Table of servers and their config, if any.
+                local servers = {
+                    rust_analyzer = {
+                        cmd = { "rustup", "run", "nightly", "rust-analyzer" },
+                    },
+                    terraformls = {},
+                }
+
+                local capabilities = vim.lsp.protocol.make_client_capabilities()
+                capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+
+                -- General configuration that will be merged with server
+                -- specific configs.
+                local general_config = {
+                    capabilities = capabilities,
+                    flags = {
+                        debounce_text_changes = 150,
+                    },
+                }
+
+                for lsp, config in pairs(servers) do
+                    local merged_config = vim.tbl_deep_extend(
+                        "keep",
+                        config,
+                        general_config
+                    )
+
+                    lspconfig[lsp].setup(merged_config)
+                end
+            end,
+            requires = {
+                "hrsh7th/nvim-cmp",
+            },
         }
 
         use {
@@ -393,8 +448,6 @@ else
                         },
                     },
                 })
-
-                vim.cmd("colorscheme monokai")
             end,
         }
     end
