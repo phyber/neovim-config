@@ -141,6 +141,32 @@ local function create_augroups(groups)
     end
 end
 
+-- Set filetypes for specific file extensions, abstracts augroups for this
+-- specific use case.
+local function filetype_extensions(types)
+    local EXTENSION_FORMAT = "*.%s"
+    local FILETYPE_FORMAT = "set filetype=%s"
+    local GROUP_NAME_FORMAT = "manualfiletype_%s"
+
+    local groups = {}
+
+    for filetype, extensions in pairs(types) do
+        for _, extension in pairs(extensions) do
+            local group_name = GROUP_NAME_FORMAT:format(filetype)
+
+            groups[group_name] = {
+                {
+                    "BufRead,BufNewFile",
+                    EXTENSION_FORMAT:format(extension),
+                    FILETYPE_FORMAT:format(filetype),
+                }
+            }
+        end
+    end
+
+    create_augroups(groups)
+end
+
 -- Debugging assistance
 local function inspect(...)
     print(vim.inspect(...))
@@ -152,14 +178,15 @@ return {
     inspect = inspect,
 
     -- Helpers
-    create_augroups = create_augroups,
-    is_directory    = is_directory,
-    is_executable   = is_executable,
-    is_exit_success = is_exit_success,
-    is_file         = is_file,
-    mkdir           = mkdir,
-    nvim_has        = nvim_has,
-    plugin_loaded   = plugin_loaded,
+    create_augroups     = create_augroups,
+    filetype_extensions = filetype_extensions,
+    is_directory        = is_directory,
+    is_executable       = is_executable,
+    is_exit_success     = is_exit_success,
+    is_file             = is_file,
+    mkdir               = mkdir,
+    nvim_has            = nvim_has,
+    plugin_loaded       = plugin_loaded,
 
     -- Key mapping
     imap     = imap,

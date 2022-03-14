@@ -35,3 +35,10 @@ util.create_augroups({
         },
     }
 })
+
+-- Technically autocmds are happening behind this, they're just abstracted away
+util.filetype_extensions({
+    terraform = {
+        "tfbackend",
+    },
+})
