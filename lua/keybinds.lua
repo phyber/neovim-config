@@ -21,6 +21,12 @@ util.nnoremap("<Leader><BS>", ":bdelete<CR>")
 -- accidentally
 util.nmap("q", "<Nop>")
 
+-- iPad Magic Keyboard bindings
+-- The § key is in a place that would be useful for Esc
+util.inoremap("§", "<Esc>")
+util.nnoremap("§", "<Esc>")
+util.vnoremap("§", "<Esc>")
+
 -- This function and keybind help with learning what syntax highlighting is
 -- being applied to an element under the cursor.
 vim.cmd([[

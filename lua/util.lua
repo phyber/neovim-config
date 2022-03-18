@@ -117,6 +117,18 @@ local function nnoremap(key, cmd)
     nmap(key, cmd, options)
 end
 
+local function vmap(key, cmd, options)
+    keymap("v", key, cmd, options)
+end
+
+local function vnoremap(key, cmd, options)
+    local options = {
+        noremap = true,
+    }
+
+    vmap(key, cmd, options)
+end
+
 -- Autocmds
 local function create_augroups(groups)
     for group, content in pairs(groups) do
@@ -194,4 +206,6 @@ return {
     map      = map,
     nmap     = nmap,
     nnoremap = nnoremap,
+    vmap     = vmap,
+    vnoremap = vnoremap,
 }
