@@ -56,12 +56,29 @@ do
         Linux = "0o700",
     }
 
-    local jit_os = jit.os
+    -- On aarch64 (at least in the snapcraft package) we currently don't have
+    -- LuaJIT. Workaround that.
+    local osname
+
+    if jit then
+        osname = jit.os
+    else
+        local f = io.popen("uname -s")
+        local uname = f:read("*a")
+
+        -- LuaJIT returns BSD, while uname returns the real kernel name, like
+        -- FreeBSD. Fix up those cases.
+        if uname:find("BSD") then
+            osname = "BSD"
+        else
+            osname = uname
+        end
+    end
 
     mkdir = function(path, mode, no_parents)
         -- Attempt to use a provided mode, the default from the above table, or
         -- finally, 0700.
-        local final_mode = mode or modes[jit_os] or "0700"
+        local final_mode = mode or modes[osname] or "0700"
         local parents = no_parents and "" or "p"
 
         fn.mkdir(path, parents, final_mode)
