@@ -65,6 +65,7 @@ do
     else
         local f = io.popen("uname -s")
         local uname = f:read("*a")
+        f:close()
 
         -- LuaJIT returns BSD, while uname returns the real kernel name, like
         -- FreeBSD. Fix up those cases.
