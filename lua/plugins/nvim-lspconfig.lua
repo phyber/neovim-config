@@ -28,9 +28,9 @@ local plugin = {
 
         for lsp, config in pairs(servers) do
             local merged_config = vim.tbl_deep_extend(
-            "keep",
-            config,
-            general_config
+                "keep",
+                config,
+                general_config
             )
 
             lspconfig[lsp].setup(merged_config)
