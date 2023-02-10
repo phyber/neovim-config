@@ -1,7 +1,6 @@
 -- Completion
 local plugin = {
     "hrsh7th/nvim-cmp",
-    enabled = false,
     config = function()
         require("cmp").setup({
             sources = {
