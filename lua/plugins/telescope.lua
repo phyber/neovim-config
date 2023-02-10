@@ -26,10 +26,10 @@ local plugin = {
     -- Plugin is only loaded when any of these keys are pressed.
     keys = {
         -- All are mode="n"
-        {"<Leader>fb"},
-        {"<Leader>ff"},
-        {"<Leader>fg"},
-        {"<Leader>fh"},
+        {"<Leader>fb", desc = "Find buffer"},
+        {"<Leader>ff", desc = "Find files"},
+        {"<Leader>fg", desc = "Live grep"},
+        {"<Leader>fh", desc = "Help tags"},
     },
     dependencies = {
         "nvim-lua/plenary.nvim",
