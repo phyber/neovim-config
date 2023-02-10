@@ -7,6 +7,14 @@ local plugin = {
                 icons_enabled = false,
                 theme = "material",
 
+                -- Disable for certain filetypes
+                disabled_filetypes = {
+                    statusline = {
+                        "alpha",
+                        "lazy",
+                    },
+                },
+
                 -- No fancy separators, not all terminals have the
                 -- rights fonts.
                 component_separators = {
