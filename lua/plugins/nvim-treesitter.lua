@@ -23,8 +23,12 @@ local plugin = {
         local sync_install = util.is_raspberry_pi()
 
         require("nvim-treesitter.configs").setup({
-            ensure_installed = {},
             sync_install = sync_install,
+
+            ensure_installed = {
+                "lua",
+                "rust",
+            },
 
             highlight = {
                 enable = true,
@@ -38,7 +42,7 @@ local plugin = {
                 end,
             },
 
-            -- Enable p00f/nvim-ts-rainbow
+            -- Enable nvim-ts-rainbow
             rainbow = {
                 enable = true,
                 extended_mode = false,
