@@ -35,5 +35,13 @@ if not plugmgr_installed() then
     print("Plugin manager not installed, run :lua InstallPlugMgr()")
 else
     vim.opt.rtp:prepend(plugmgr.path)
-    require("lazy").setup("plugins")
+
+    local config = {
+        git = {
+            -- RaspberryPi can be slow, allow a longer timeout
+            timeout = 60 * 5,
+        },
+    }
+
+    require("lazy").setup("plugins", config)
 end
