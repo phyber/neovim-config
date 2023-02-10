@@ -1,7 +1,7 @@
 -- Rainbow parentheses
--- This plugin is deprecated and archived.
 local plugin = {
-    "p00f/nvim-ts-rainbow",
+    "mrjones2014/nvim-ts-rainbow",
+    lazy = true,
 }
 
 return plugin

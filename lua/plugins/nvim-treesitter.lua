@@ -39,7 +39,7 @@ local plugin = {
         })
     end,
     dependencies = {
-        "p00f/nvim-ts-rainbow",
+        "mrjones2014/nvim-ts-rainbow",
     },
 }
 
