@@ -112,6 +112,19 @@ else
             end,
         }
 
+        -- Welcome screen
+        use {
+            "goolord/alpha-nvim",
+            config = function ()
+                local alpha = require("alpha")
+                local config = require("alpha.themes.startify").config
+                alpha.setup(config)
+            end,
+            requires = {
+                "kyazdani42/nvim-web-devicons",
+            },
+        }
+
         -- Terraform syntax highlighting
         use {
             "hashivim/vim-terraform",
@@ -137,10 +150,12 @@ else
         -- Git diff status in the sidebar
         use {
             "lewis6991/gitsigns.nvim",
-            requires = "nvim-lua/plenary.nvim",
             config = function()
                 require("gitsigns").setup()
             end,
+            requires = {
+                "nvim-lua/plenary.nvim",
+            },
         }
 
         use {
@@ -259,7 +274,6 @@ else
         -- Fuzzy finder
         use {
             "nvim-telescope/telescope.nvim",
-            requires = "nvim-lua/plenary.nvim",
             cond = function()
                 local util = require "util"
 
@@ -288,6 +302,9 @@ else
                 {"n", "<Leader>ff"},
                 {"n", "<Leader>fg"},
                 {"n", "<Leader>fh"},
+            },
+            requires = {
+                "nvim-lua/plenary.nvim",
             },
         }
 
