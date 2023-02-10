@@ -36,6 +36,9 @@ vim.o.history = 50
 -- Incremental searching
 vim.o.incsearch = true
 
+-- Disable mouse support
+vim.o.mouse = nil
+
 -- Line numbers
 vim.o.number = true
 
