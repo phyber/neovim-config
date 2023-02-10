@@ -39,6 +39,12 @@ local function is_exit_success()
     return api.nvim_get_vvar("shell_error") == 0
 end
 
+-- Return true if the system appears to be a Raspberry Pi
+local function is_raspberry_pi()
+    -- This should be improved somewhat, but it's fine for now.
+    return is_file("/boot/cmdline.txt")
+end
+
 -- Creates a directory, mode and no_parents are optional.
 -- By default will attempt to create parent directories if they don't exist and
 -- will create private (0700) directories if a mode isn't given.
@@ -214,6 +220,7 @@ return {
     is_executable       = is_executable,
     is_exit_success     = is_exit_success,
     is_file             = is_file,
+    is_raspberry_pi     = is_raspberry_pi,
     mkdir               = mkdir,
     nvim_has            = nvim_has,
     plugin_loaded       = plugin_loaded,
