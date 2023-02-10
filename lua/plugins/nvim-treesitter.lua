@@ -23,11 +23,7 @@ local plugin = {
         local sync_install = util.is_raspberry_pi()
 
         require("nvim-treesitter.configs").setup({
-            ensure_installed = {
-                "lua",
-                "vim",
-            },
-
+            ensure_installed = {},
             sync_install = sync_install,
 
             highlight = {
