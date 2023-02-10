@@ -4,10 +4,27 @@
 local util = require "util"
 
 -- Settings
+local lazy = {
+    path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim",
+    repo = "https://github.com/folke/lazy.nvim.git",
+}
+
 local plugmgr = {
     path = vim.fn.stdpath("data").."/site/pack/packer/start/packer.nvim",
     repo = "https://github.com/wbthomason/packer.nvim",
 }
+
+if not vim.loop.fs_stat(lazy.path) then
+    local git = require "git"
+
+    local options = {
+        "--branch=stable",
+        "--filter=blob:none",
+    }
+
+    local success = git:clone(lazy.repo, lazy.path, options)
+end
+vim.opt.rtp:prepend(lazy.path)
 
 -- Checks if the plugmgr is installed by checking for its install directory
 local function plugmgr_installed()
