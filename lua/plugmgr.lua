@@ -1,6 +1,5 @@
--- Plugins
--- This file loads and configures plugins. It may also configure keybindings
--- for them as it makes sense to do it here if/when the plugins lo.
+-- Plugmgr
+-- This file handles the installation and configuration of the plugin manager.
 local util = require "util"
 
 -- Settings
@@ -30,7 +29,7 @@ if not plugmgr_installed() then
             return
         end
 
-        print("Restart nvim")
+        print("Restart nvim to complete setup of plugmgr")
     end
 
     print("Plugin manager not installed, run :lua InstallPlugMgr()")
