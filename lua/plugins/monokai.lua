@@ -1,6 +1,7 @@
 -- Monokai theme
 local plugin = {
     "tanvirtin/monokai.nvim",
+    priority = 1000,
     config = function()
         -- We mostly turn the theme into molokai here.
         -- We should probably just create a real molokai theme at some

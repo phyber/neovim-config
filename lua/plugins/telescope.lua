@@ -35,3 +35,5 @@ local plugin = {
         "nvim-lua/plenary.nvim",
     },
 }
+
+return plugin

@@ -1,7 +1,7 @@
 local plugin = {
     "crispgm/nvim-tabline",
     config = function()
-        require("tabline").setup()
+        require("tabline").setup({})
     end,
 }
 
