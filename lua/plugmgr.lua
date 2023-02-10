@@ -13,18 +13,6 @@ local plugmgr = {
     },
 }
 
---if not vim.loop.fs_stat(plugmgr.path) then
---    local git = require "git"
---
---    local options = {
---        "--branch=stable",
---        "--filter=blob:none",
---    }
---
---    local success = git:clone(lazy.repo, lazy.path, options)
---end
---vim.opt.rtp:prepend(lazy.path)
-
 -- Checks if the plugmgr is installed by checking for its install directory
 local function plugmgr_installed()
     return util.is_directory(plugmgr.path)
