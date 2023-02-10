@@ -1,6 +1,7 @@
 -- Language Server Protocol config
 local plugin = {
     "neovim/nvim-lspconfig",
+    enabled = false,
     config = function()
         local lspconfig = require("lspconfig")
 
