@@ -14,9 +14,6 @@ util.create_augroups({
         {"FileType", "terraform", "setlocal ts=2 sts=2 sw=2 expandtab"},
         {"FileType", "yaml", "setlocal ts=4 sts=4 sw=4 expandtab"},
 
-        -- Run Neomake after any buffer write.
-        {"BufWritePost", "*", "Neomake"},
-
         -- When editing a file, always jump to the last known cursor position.
         -- Don't do it when the position is invalid or when inside an event
         -- hander (happens when dropping a file on gvim).
