@@ -1,5 +1,6 @@
 local plugin = {
     "glepnir/indent-guides.nvim",
+    enabled = false,
     config = function()
         -- The default colours here hid the cursor when it was over an
         -- indent guide.
