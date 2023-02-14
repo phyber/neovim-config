@@ -145,7 +145,7 @@ local function vmap(key, cmd, options)
     keymap("v", key, cmd, options)
 end
 
-local function vnoremap(key, cmd, options)
+local function vnoremap(key, cmd)
     local options = {
         noremap = true,
     }
