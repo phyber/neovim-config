@@ -6,6 +6,7 @@ local plugin = {
 
         null_ls.setup({
             sources = {
+                null_ls.builtins.diagnostics.luacheck,
                 null_ls.builtins.diagnostics.yamllint,
                 null_ls.builtins.formatting.goimports,
             },
