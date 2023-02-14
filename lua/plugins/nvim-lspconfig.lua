@@ -1,15 +1,14 @@
 -- Language Server Protocol config
 local plugin = {
     "neovim/nvim-lspconfig",
-    enabled = false,
     config = function()
         local lspconfig = require("lspconfig")
 
         -- Table of servers and their config, if any.
         local servers = {
-            rust_analyzer = {
-                cmd = { "rustup", "run", "nightly", "rust-analyzer" },
-            },
+            --rust_analyzer = {
+            --    cmd = { "rustup", "run", "nightly", "rust-analyzer" },
+            --},
             terraformls = {},
         }
 
