@@ -11,7 +11,13 @@ local plugin = {
                 },
             },
         })
+
+        local util = require("util")
+        util.nnoremap("<Leader>nt", ":NvimTreeToggle<CR>")
     end,
+    keys = {
+        {"<Leader>nt", desc = "Nvim Tree Toggle"},
+    },
 }
 
 return plugin
