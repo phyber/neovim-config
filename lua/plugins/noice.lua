@@ -1,6 +1,9 @@
 -- Replacement notices UIs
 local plugin = {
     "folke/noice.nvim",
+    cond = function()
+        return require("util").nvim_has("nvim-0.9")
+    end,
     config = function()
         require("noice").setup({
             cmdline = {
