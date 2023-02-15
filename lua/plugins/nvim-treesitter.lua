@@ -26,8 +26,13 @@ local plugin = {
             sync_install = sync_install,
 
             ensure_installed = {
+                "bash",
                 "lua",
+                "markdown",
+                "markdown_inline",
+                "regex",
                 "rust",
+                "vim",
             },
 
             highlight = {
