@@ -36,12 +36,13 @@ if not plugmgr_installed() then
 else
     vim.opt.rtp:prepend(plugmgr.path)
 
-    local config = {
-        git = {
-            -- RaspberryPi can be slow, allow a longer timeout
-            timeout = 60 * 5,
-        },
-    }
+    local config = {}
+
+    if util.is_raspberry_pi() then
+        -- RaspberryPi can be slow, allow a longer timeout
+        config.git = {}
+        config.git.timeout = 60 * 5
+    end
 
     require("lazy").setup("plugins", config)
 end
