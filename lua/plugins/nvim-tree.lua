@@ -3,9 +3,11 @@ local plugin = {
     "nvim-tree/nvim-tree.lua",
     config = function()
         require("nvim-tree").setup({
-            icons = {
-                show = {
-                    file = false,
+            renderer = {
+                icons = {
+                    show = {
+                        file = false,
+                    },
                 },
             },
         })
