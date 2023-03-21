@@ -7,7 +7,7 @@ local plugin = {
         -- Table of servers and their config, if any.
         local servers = {
             --rust_analyzer = {
-            --    cmd = { "rustup", "run", "nightly", "rust-analyzer" },
+            --    cmd = { "rustup", "run", "stable", "rust-analyzer" },
             --},
             terraformls = {},
         }
