@@ -156,24 +156,23 @@ end
 -- Autocmds
 local function create_augroups(groups)
     for group, content in pairs(groups) do
-        api.nvim_command(("augroup %s"):format(group))
-        api.nvim_command("autocmd!")
+        -- Create a named autogroup
+        api.nvim_create_augroup(group, {
+            clear = true,
+        })
 
-        for _, command in pairs(content) do
-            local line
+        -- Add the events to the created group
+        for _, input in pairs(content) do
+            local event = input[1]
+            local pattern = input[2]
+            local command = input[3]
 
-            if type(command) == "table" then
-                -- {"Event", "Pattern", "Command"} style autocommands.
-                line = ("autocmd %s %s %s"):format(unpack(command))
-            else
-                -- "Event Pattern Command" style autocommands.
-                line = ("autocmd %s"):format(command)
-            end
-
-            api.nvim_command(line)
+            api.nvim_create_autocmd({ event }, {
+                group = group,
+                pattern = { pattern },
+                command = command,
+            })
         end
-
-        api.nvim_command("augroup END")
     end
 end
 
