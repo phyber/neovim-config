@@ -15,21 +15,7 @@ util.create_augroups({
         {"FileType", "yaml", "setlocal ts=4 sts=4 sw=4 expandtab"},
 
         -- When editing a file, always jump to the last known cursor position.
-        -- Don't do it when the position is invalid or when inside an event
-        -- hander (happens when dropping a file on gvim).
-        -- Also don't do it when the mark is in the first line, that is the
-        -- default position when opening a file
-        {
-            "BufReadPost",
-            "*",
-            -- Multiline enclosing here to prevent special treatment of various
-            -- characters.
-            [[
-            if line("'\"") > 1 && line("'\"") < line("$") |
-                exe "normal! g`\"" |
-            endif
-            ]],
-        },
+        {"BufReadPost", "*", 'silent! normal! g`"zv'},
     }
 })
 
