@@ -97,13 +97,6 @@ local function nvim_has(feature)
     return fn.has(feature) == 1
 end
 
--- Check if a plugin is loaded
-local function plugin_loaded(name)
-    local plugin = packer_plugins[name]
-
-    return plugin and plugin.loaded
-end
-
 -- Key remapping helpers
 local function keymap(mode, key, cmd, options)
     if not options then
@@ -213,16 +206,22 @@ return {
     inspect = inspect,
 
     -- Helpers
+    -- Autocmds
     create_augroups     = create_augroups,
     filetype_extensions = filetype_extensions,
-    is_directory        = is_directory,
-    is_executable       = is_executable,
-    is_exit_success     = is_exit_success,
-    is_file             = is_file,
-    is_raspberry_pi     = is_raspberry_pi,
-    mkdir               = mkdir,
-    nvim_has            = nvim_has,
-    plugin_loaded       = plugin_loaded,
+
+    -- Filesystem
+    is_directory  = is_directory,
+    is_executable = is_executable,
+    is_file       = is_file,
+    mkdir         = mkdir,
+
+    -- Processes
+    is_exit_success = is_exit_success,
+
+    -- Neovim
+    is_raspberry_pi = is_raspberry_pi,
+    nvim_has        = nvim_has,
 
     -- Key mapping
     imap     = imap,
