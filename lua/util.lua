@@ -98,52 +98,54 @@ local function nvim_has(feature)
 end
 
 -- Key remapping helpers
-local function keymap(mode, key, cmd, options)
-    if not options then
-        options = {}
-    end
-
-    api.nvim_set_keymap(mode, key, cmd, options)
+local function keymap(mode, key, command, options)
+    api.nvim_set_keymap(mode, key, command, options or {})
 end
 
-local function imap(key, cmd, options)
-    keymap("i", key, cmd, options)
+local function imap(key, command, opts)
+    keymap("i", key, command, opts)
 end
 
-local function inoremap(key, cmd)
-    local options = {
+local function inoremap(key, command, options)
+    local noremap = {
         noremap = true,
     }
 
-    imap(key, cmd, options)
+    options = vim.tbl_deep_extend("keep", noremap, options or {})
+
+    imap(key, command, options)
 end
 
-local function map(key, cmd, options)
-    keymap("", key, cmd, options)
+local function map(key, command, options)
+    keymap("", key, command, options)
 end
 
-local function nmap(key, cmd, options)
-    keymap("n", key, cmd, options)
+local function nmap(key, command, options)
+    keymap("n", key, command, options)
 end
 
-local function nnoremap(key, cmd)
-    local options = {
+local function nnoremap(key, command, options)
+    local noremap = {
         noremap = true,
     }
 
-    nmap(key, cmd, options)
+    options = vim.tbl_deep_extend("keep", noremap, options or {})
+
+    nmap(key, command, options)
 end
 
-local function vmap(key, cmd, options)
-    keymap("v", key, cmd, options)
+local function vmap(key, command, options)
+    keymap("v", key, command, options)
 end
 
-local function vnoremap(key, cmd)
-    local options = {
+local function vnoremap(key, command, options)
+    local noremap = {
         noremap = true,
     }
 
-    vmap(key, cmd, options)
+    options = vim.tbl_deep_extend("keep", noremap, options or {})
+
+    vmap(key, command, options)
 end
 
 -- Autocmds
