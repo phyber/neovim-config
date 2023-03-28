@@ -2,6 +2,12 @@
 local plugin = {
     "neovim/nvim-lspconfig",
     config = function()
+        -- Disable LSP server logging, terraform-ls is far too broken and lots
+        -- of errors end up being logged.
+        -- We might be able to disable this per server, but for now just
+        -- disable globally.
+        vim.lsp.set_log_level("OFF")
+
         local lspconfig = require("lspconfig")
 
         -- Table of servers and their config, if any.
