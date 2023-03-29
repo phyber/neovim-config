@@ -15,6 +15,24 @@ local plugin = {
 
         -- Table of servers and their config, if any.
         local servers = {
+            lua_ls = {
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = {
+                                "vim",
+                            },
+                        },
+                        telemetry = {
+                            enable = false,
+                        },
+                        workspace = {
+                            checkThirdParty = false,
+                            library = vim.api.nvim_get_runtime_file("", true),
+                        },
+                    },
+                },
+            },
             --rust_analyzer = {
             --    cmd = { "rustup", "run", "stable", "rust-analyzer" },
             --},
