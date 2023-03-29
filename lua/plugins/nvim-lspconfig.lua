@@ -2,6 +2,9 @@
 local plugin = {
     "neovim/nvim-lspconfig",
     config = function()
+        -- We index this in a loop, so get a local.
+        local vim = vim
+
         -- Disable LSP server logging, terraform-ls is far too broken and lots
         -- of errors end up being logged.
         -- We might be able to disable this per server, but for now just
@@ -23,23 +26,25 @@ local plugin = {
             client_capabilities
         )
 
-        -- General configuration that will be merged with server
-        -- specific configs.
-        local general_config = {
+        -- Global configuration that will be merged with server specific
+        -- configs.
+        local global_config = {
             capabilities = capabilities,
             flags = {
                 debounce_text_changes = 150,
             },
         }
 
-        for lsp, config in pairs(servers) do
-            local merged_config = vim.tbl_deep_extend(
+        -- For each server config, merge it with the global config and call
+        -- setup with it.
+        for lsp, server_config in pairs(servers) do
+            local config = vim.tbl_deep_extend(
                 "keep",
-                config,
-                general_config
+                server_config,
+                global_config
             )
 
-            lspconfig[lsp].setup(merged_config)
+            lspconfig[lsp].setup(config)
         end
     end,
     dependencies = {
