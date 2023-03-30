@@ -1,5 +1,6 @@
 local plugin = {
     "neomake/neomake",
+    enabled = false,
     config = function()
         local util = require "util"
 
