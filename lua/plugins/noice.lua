@@ -1,6 +1,7 @@
 -- Replacement notices UIs
 local plugin = {
     "folke/noice.nvim",
+    enabled = false,
     cond = function()
         return require("util").nvim_has("nvim-0.9")
     end,
@@ -36,6 +37,9 @@ local plugin = {
             },
             presets = {
                 bottom_search = true,
+                command_palette = true,
+                long_message_to_split = true,
+                lsp_doc_border = true,
             },
         })
     end,
