@@ -33,8 +33,11 @@ local line_diagnostics = {
     bufnr = -1,
     echoed = false,
     line = -1,
-    message = EMPTY_TABLE,
 }
+
+local function echo(message)
+    nvim_echo(message, false, EMPTY_TABLE)
+end
 
 local function fmt_message(message, severity)
     local kind = KIND_WARNING
@@ -55,8 +58,25 @@ local function fmt_message(message, severity)
     return chunks
 end
 
-function line_diagnostics:echo()
-    nvim_echo(self.message, false, EMPTY_TABLE)
+local function message_from_diagnostics(diagnostics)
+    -- Get the first line of the first diagnostic
+    local diagnostic = diagnostics[1]
+    local lines = split(diagnostic.message, "\n")
+    local message = lines[1]
+
+    -- If there are multiple lines and line 1 was short, append line 2
+    if #lines > 1 and #message <= SHORT_LINE_LIMIT then
+        message = FMT_MESSAGE_LINES:format(message, lines[2])
+    end
+
+    local width = nvim_get_option("columns") - 15
+
+    -- If the message is longer than the width we want, truncate it
+    if width > 0 and #message >= width then
+        message = FMT_MESSAGE_TRUNCATED:format(message:sub(1, width))
+    end
+
+    return fmt_message(message, diagnostic.severity)
 end
 
 -- Returns nil if there's nothing to do, or true if there's an echo to perform
@@ -85,7 +105,7 @@ function line_diagnostics:get()
         if self.echoed then
             self:reset()
 
-            return true
+            return EMPTY_TABLE
         end
 
         return
@@ -94,25 +114,7 @@ function line_diagnostics:get()
     -- We've got something to echo if we came this far.
     self:set_current(bufnr, line)
 
-    -- Get the first line of the first diagnostic
-    local diagnostic = diagnostics[1]
-    local lines = split(diagnostic.message, "\n")
-    local message = lines[1]
-
-    -- If there are multiple lines and line 1 was short, append line 2
-    if #lines > 1 and #message <= SHORT_LINE_LIMIT then
-        message = FMT_MESSAGE_LINES:format(message, lines[2])
-    end
-
-    local width = nvim_get_option("columns") - 15
-
-    -- If the message is longer than the width we want, truncate it
-    if width > 0 and #message >= width then
-        message = FMT_MESSAGE_TRUNCATED:format(message:sub(1, width))
-    end
-
-    self.message = fmt_message(message, diagnostic.severity)
-    return true
+    return message_from_diagnostics(diagnostics)
 end
 
 -- Returns true if the current line is the one being echoed
@@ -125,7 +127,6 @@ function line_diagnostics:reset()
     self.bufnr = -1
     self.echoed = false
     self.line = -1
-    self.message = EMPTY_TABLE
 end
 
 -- Set all last_echo values
@@ -148,8 +149,9 @@ do
         --echo_timer = defer_fn(get_diagnostic, ECHO_TIMEOUT_MS)
 
         echo_timer = defer_fn(function()
-            if line_diagnostics:get() then
-                line_diagnostics:echo()
+            local message = line_diagnostics:get()
+            if message then
+                echo(message)
             end
         end, ECHO_TIMEOUT_MS)
     end
