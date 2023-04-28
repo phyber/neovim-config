@@ -35,14 +35,21 @@ local plugin = {
                     },
                 },
             },
+            rust_analyzer = {
+                cmd = { "rustup", "run", "stable", "rust-analyzer" },
+            },
             terraformls = {},
         }
 
-        -- Don't enable rust-analyzer on a Raspberry Pi
-        if not util.is_raspberry_pi() then
-            servers.rust_analyzer = {
-                cmd = { "rustup", "run", "stable", "rust-analyzer" },
-            }
+        if util.is_freebsd() then
+            -- lua-language-server doesn't exist for FreeBSD. Don't try to
+            -- enable it there.
+            servers.lua_ls = nil
+        end
+
+        if util.is_raspberry_pi() then
+            -- Don't enable rust-analyzer on a Raspberry Pi.
+            servers.rust_analyzer = nil
         end
 
         local client_capabilities = vim.lsp.protocol.make_client_capabilities()
