@@ -40,9 +40,23 @@ local function is_exit_success()
 end
 
 -- Return true if the system appears to be a Raspberry Pi
+-- Works on a Raspberry Pi 4.
 local function is_raspberry_pi()
-    -- This should be improved somewhat, but it's fine for now.
-    return is_file("/boot/cmdline.txt")
+    local pi = false
+    local f = io.open("/proc/cpuinfo")
+
+    if f then
+        for line in f:lines() do
+            if line:find("Model", 1, true) then
+                pi = line:find("Raspberry Pi") ~= nil
+                break
+            end
+        end
+
+        f:close()
+    end
+
+    return pi
 end
 
 -- Creates a directory, mode and no_parents are optional.
