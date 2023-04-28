@@ -39,6 +39,31 @@ local function is_exit_success()
     return api.nvim_get_vvar("shell_error") == 0
 end
 
+local os_uname
+do
+    local uname = ""
+
+    local f = io.popen("uname -s")
+    if f then
+        uname = f:read("*a")
+        f:close()
+    end
+
+    os_uname = function()
+        return uname
+    end
+end
+
+-- Return true if the system is FreeBSD
+local is_freebsd
+do
+    local freebsd = os_uname():find("FreeBSD") ~= nil
+
+    is_freebsd = function()
+        return freebsd
+    end
+end
+
 -- Return true if the system appears to be a Raspberry Pi
 -- Works on a Raspberry Pi 4.
 local is_raspberry_pi
@@ -86,9 +111,7 @@ do
     if jit then
         osname = jit.os
     else
-        local f = io.popen("uname -s")
-        local uname = f:read("*a")
-        f:close()
+        local uname = os_uname()
 
         -- LuaJIT returns BSD, while uname returns the real kernel name, like
         -- FreeBSD. Fix up those cases.
@@ -239,6 +262,7 @@ return {
     is_exit_success = is_exit_success,
 
     -- Neovim
+    is_freebsd      = is_freebsd,
     is_raspberry_pi = is_raspberry_pi,
     nvim_has        = nvim_has,
 
