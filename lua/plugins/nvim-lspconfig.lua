@@ -2,6 +2,8 @@
 local plugin = {
     "neovim/nvim-lspconfig",
     config = function()
+        local util = require "util"
+
         -- We index this in a loop, so get a local.
         local vim = vim
 
@@ -33,11 +35,15 @@ local plugin = {
                     },
                 },
             },
-            --rust_analyzer = {
-            --    cmd = { "rustup", "run", "stable", "rust-analyzer" },
-            --},
             terraformls = {},
         }
+
+        -- Don't enable rust-analyzer on a Raspberry Pi
+        if not util.is_raspberry_pi() then
+            servers.rust_analyzer = {
+                cmd = { "rustup", "run", "stable", "rust-analyzer" },
+            }
+        end
 
         local client_capabilities = vim.lsp.protocol.make_client_capabilities()
         local capabilities = require("cmp_nvim_lsp").default_capabilities(
