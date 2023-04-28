@@ -51,6 +51,9 @@ local plugin = {
             flags = {
                 debounce_text_changes = 150,
             },
+            on_attach = function(client, _bufnr)
+                client.server_capabilities.semanticTokensProvider = nil
+            end,
         }
 
         -- For each server config, merge it with the global config and call
