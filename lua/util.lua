@@ -41,10 +41,11 @@ end
 
 -- Return true if the system appears to be a Raspberry Pi
 -- Works on a Raspberry Pi 4.
-local function is_raspberry_pi()
+local is_raspberry_pi
+do
     local pi = false
-    local f = io.open("/proc/cpuinfo")
 
+    local f = io.open("/proc/cpuinfo")
     if f then
         for line in f:lines() do
             if line:find("Model", 1, true) then
@@ -56,7 +57,9 @@ local function is_raspberry_pi()
         f:close()
     end
 
-    return pi
+    is_raspberry_pi = function()
+        return pi
+    end
 end
 
 -- Creates a directory, mode and no_parents are optional.
