@@ -1,5 +1,5 @@
 -- Machine module
--- Helpful ifnormation about the machine we're running on.
+-- Helpful information about the machine we're running on.
 
 -- Return true if the system is FreeBSD
 local is_freebsd
