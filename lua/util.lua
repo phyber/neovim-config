@@ -14,12 +14,8 @@ local function nvim_has(feature)
 end
 
 -- Key remapping helpers
-local function keymap(mode, key, command, options)
-    api.nvim_set_keymap(mode, key, command, options or {})
-end
-
-local function imap(key, command, opts)
-    keymap("i", key, command, opts)
+local function imap(key, command, options)
+    api.nvim_set_keymap("i", key, command, options or {})
 end
 
 local function inoremap(key, command, options)
@@ -33,11 +29,11 @@ local function inoremap(key, command, options)
 end
 
 local function map(key, command, options)
-    keymap("", key, command, options)
+    api.nvim_set_keymap("", key, command, options or {})
 end
 
 local function nmap(key, command, options)
-    keymap("n", key, command, options)
+    api.nvim_set_keymap("n", key, command, options or {})
 end
 
 local function nnoremap(key, command, options)
@@ -51,7 +47,7 @@ local function nnoremap(key, command, options)
 end
 
 local function vmap(key, command, options)
-    keymap("v", key, command, options)
+    api.nvim_set_keymap("v", key, command, options or {})
 end
 
 local function vnoremap(key, command, options)
