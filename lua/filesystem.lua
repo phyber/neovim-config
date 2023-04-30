@@ -1,17 +1,10 @@
 -- Utils module
-local api = vim.api
 local fn = vim.fn
+local loop = vim.loop
 
--- Returns true if the given item is empty.
--- See ":help empty" for what consitutes empty.
-local function empty(item)
-    return fn.empty(item) == 1
-end
-
--- the Vim API has no direct way to check that a path exists, so we work around
--- that by checking for an empty glob.
+-- Check if a given path exists.
 local function path_exists(path)
-    return not empty(fn.glob(path))
+    return loop.fs_stat(path) ~= nil
 end
 
 -- We wrap a few functions to return proper booleans from them so callers don't
@@ -57,7 +50,7 @@ do
     if jit then
         osname = jit.os
     else
-        local uname = vim.loop.os_uname().sysname
+        local uname = loop.os_uname().sysname
 
         -- LuaJIT returns BSD, while uname returns the real kernel name, like
         -- FreeBSD. Fix up those cases.
