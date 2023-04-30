@@ -1,7 +1,7 @@
 -- Plugmgr
 -- This file handles the installation and configuration of the plugin manager.
+local filesystem = require "filesystem"
 local machine = require "machine"
-local util = require "util"
 
 -- Settings
 local plugmgr = {
@@ -15,7 +15,7 @@ local plugmgr = {
 
 -- Checks if the plugmgr is installed by checking for its install directory
 local function plugmgr_installed()
-    return util.is_directory(plugmgr.path)
+    return filesystem.is_directory(plugmgr.path)
 end
 
 -- If the plugmgr isn't installed, create a function that can be used to

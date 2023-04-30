@@ -72,6 +72,7 @@ vim.o.undofile = true
 -- This handles setting of the tmp, backup, and undo directories and creation
 -- of them if they don't exist yet.
 do
+    local filesystem = require "filesystem"
     local basepath_fmt = fn.stdpath("config") .. "/scratch/%s"
 
     local tmpdirs = {
@@ -83,8 +84,8 @@ do
     for dirtype, dir in pairs(tmpdirs) do
         local path = basepath_fmt:format(dir)
 
-        if not util.is_directory(path) then
-            util.mkdir(path)
+        if not filesystem.is_directory(path) then
+            filesystem.mkdir(path)
         end
 
         -- The actual setting

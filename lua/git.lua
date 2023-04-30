@@ -1,4 +1,5 @@
 -- Git module
+local filesystem = require "filesystem"
 local util = require "util"
 local fn = vim.fn
 
@@ -12,7 +13,7 @@ local cmds = {
 -- Clones a git repo from repo to dest
 -- Returns false on failure, true on success
 function git:clone(repo, dest, options)
-    if not util.is_executable(cmds.git) then
+    if not filesystem.is_executable(cmds.git) then
         print("git not found, cannot continue")
 
         return false
