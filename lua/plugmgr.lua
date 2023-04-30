@@ -1,5 +1,6 @@
 -- Plugmgr
 -- This file handles the installation and configuration of the plugin manager.
+local machine = require "machine"
 local util = require "util"
 
 -- Settings
@@ -38,7 +39,7 @@ else
 
     local config = {}
 
-    if util.is_raspberry_pi() then
+    if machine.is_raspberry_pi() then
         -- RaspberryPi can be slow, allow a longer timeout
         config.git = {}
         config.git.timeout = 60 * 5

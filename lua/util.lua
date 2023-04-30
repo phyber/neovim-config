@@ -39,54 +39,6 @@ local function is_exit_success()
     return api.nvim_get_vvar("shell_error") == 0
 end
 
-local os_uname
-do
-    local uname = ""
-
-    local f = io.popen("uname -s")
-    if f then
-        uname = f:read("*a")
-        f:close()
-    end
-
-    os_uname = function()
-        return uname
-    end
-end
-
--- Return true if the system is FreeBSD
-local is_freebsd
-do
-    local freebsd = os_uname():find("FreeBSD") ~= nil
-
-    is_freebsd = function()
-        return freebsd
-    end
-end
-
--- Return true if the system appears to be a Raspberry Pi
--- Works on a Raspberry Pi 4.
-local is_raspberry_pi
-do
-    local pi = false
-
-    local f = io.open("/proc/cpuinfo")
-    if f then
-        for line in f:lines() do
-            if line:find("Model", 1, true) then
-                pi = line:find("Raspberry Pi") ~= nil
-                break
-            end
-        end
-
-        f:close()
-    end
-
-    is_raspberry_pi = function()
-        return pi
-    end
-end
-
 -- Creates a directory, mode and no_parents are optional.
 -- By default will attempt to create parent directories if they don't exist and
 -- will create private (0700) directories if a mode isn't given.
@@ -111,7 +63,7 @@ do
     if jit then
         osname = jit.os
     else
-        local uname = os_uname()
+        local uname = vim.loop.os_uname().sysname
 
         -- LuaJIT returns BSD, while uname returns the real kernel name, like
         -- FreeBSD. Fix up those cases.
@@ -262,9 +214,7 @@ return {
     is_exit_success = is_exit_success,
 
     -- Neovim
-    is_freebsd      = is_freebsd,
-    is_raspberry_pi = is_raspberry_pi,
-    nvim_has        = nvim_has,
+    nvim_has = nvim_has,
 
     -- Key mapping
     imap     = imap,

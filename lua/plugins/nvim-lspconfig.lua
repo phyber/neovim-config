@@ -2,7 +2,7 @@
 local plugin = {
     "neovim/nvim-lspconfig",
     config = function()
-        local util = require "util"
+        local machine = require("machine")
 
         -- We index this in a loop, so get a local.
         local vim = vim
@@ -41,13 +41,13 @@ local plugin = {
             terraformls = {},
         }
 
-        if util.is_freebsd() then
+        if machine.is_freebsd() then
             -- lua-language-server doesn't exist for FreeBSD. Don't try to
             -- enable it there.
             servers.lua_ls = nil
         end
 
-        if util.is_raspberry_pi() then
+        if machine.is_raspberry_pi() then
             -- Don't enable rust-analyzer on a Raspberry Pi.
             servers.rust_analyzer = nil
         end
