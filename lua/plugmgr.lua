@@ -7,7 +7,7 @@ local machine = require "machine"
 local plugmgr = {
     path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim",
     repo = "https://github.com/folke/lazy.nvim.git",
-    opts = {
+    options = {
         "--branch=stable",
         "--filter=blob:none",
     },
@@ -25,7 +25,7 @@ if not plugmgr_installed() then
 
     -- This needs to be called via :lua
     function InstallPlugMgr()
-        local success = git:clone(plugmgr.repo, plugmgr.path, plugmgr.opts)
+        local success = git:clone(plugmgr.repo, plugmgr.path, plugmgr.options)
         if not success then
             return
         end
@@ -41,8 +41,9 @@ else
 
     if machine.is_raspberry_pi() then
         -- RaspberryPi can be slow, allow a longer timeout
-        config.git = {}
-        config.git.timeout = 60 * 5
+        config.git = {
+            timeout = 60 * 5
+        }
     end
 
     require("lazy").setup("plugins", config)
