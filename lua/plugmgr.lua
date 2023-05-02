@@ -37,13 +37,23 @@ if not plugmgr_installed() then
 else
     vim.opt.rtp:prepend(plugmgr.path)
 
-    local config = {}
+    local config = {
+        -- Reloading neovim is fine.
+        change_detection = {
+            enabled = false,
+        },
+        git = {},
+        install = {
+            -- Sets the colorscheme when installs are happening at startup.
+            colorscheme = {
+                "monokai",
+            },
+        },
+    }
 
     if machine.is_raspberry_pi() then
         -- RaspberryPi can be slow, allow a longer timeout
-        config.git = {
-            timeout = 60 * 5
-        }
+        config.git.timeout = 60 * 5
     end
 
     require("lazy").setup("plugins", config)
