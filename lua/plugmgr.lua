@@ -25,7 +25,7 @@ if not plugmgr_installed() then
 
     -- This needs to be called via :lua
     function InstallPlugMgr()
-        local success = git:clone(plugmgr.repo, plugmgr.path, plugmgr.options)
+        local success = git.clone(plugmgr.repo, plugmgr.path, plugmgr.options)
         if not success then
             return
         end
