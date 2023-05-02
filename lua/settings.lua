@@ -1,5 +1,4 @@
 -- nvim configuration
-local util = require "util"
 local vim = vim
 local fn = vim.fn
 
@@ -92,6 +91,3 @@ do
         vim.o[dirtype] = path .. "//,."
     end
 end
-
--- Add global inspect function
-_G.inspect = util.inspect

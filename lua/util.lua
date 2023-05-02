@@ -63,6 +63,8 @@ local function filetype_extensions(types)
 end
 
 -- Debugging assistance
+-- No longer injected into _G since we can ":lua =foo" to get a reasonable
+-- inspect output.
 local function inspect(...)
     print(vim.inspect(...))
 end
