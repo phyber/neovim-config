@@ -30,6 +30,7 @@ local plugin = {
                     },
                 },
             },
+            ruff_lsp = {},
             rust_analyzer = {
                 cmd = { "rustup", "run", "stable", "rust-analyzer" },
             },
