@@ -22,6 +22,7 @@ local plugin = {
                     Lua = {
                         diagnostics = {
                             globals = {
+                                "jit",
                                 "vim",
                             },
                         },
