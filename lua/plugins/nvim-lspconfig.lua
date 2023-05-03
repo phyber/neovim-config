@@ -2,18 +2,9 @@
 local plugin = {
     "neovim/nvim-lspconfig",
     config = function()
-        local machine = require("machine")
-
-        -- We index this in a loop, so get a local.
-        local vim = vim
-
-        -- Disable LSP server logging, terraform-ls is far too broken and lots
-        -- of errors end up being logged.
-        -- We might be able to disable this per server, but for now just
-        -- disable globally.
-        vim.lsp.set_log_level("OFF")
-
         local lspconfig = require("lspconfig")
+        local machine = require("machine")
+        local vim = vim
 
         -- Table of servers and their config, if any.
         local servers = {
@@ -25,6 +16,9 @@ local plugin = {
                                 "jit",
                                 "vim",
                             },
+                        },
+                        runtime = {
+                            version = "LuaJIT",
                         },
                         telemetry = {
                             enable = false,
@@ -39,7 +33,12 @@ local plugin = {
             rust_analyzer = {
                 cmd = { "rustup", "run", "stable", "rust-analyzer" },
             },
-            terraformls = {},
+            terraformls = {
+                -- terraform-ls sends a lot of output to stderr, not just
+                -- errors. Send all of its junk to /dev/null. They're fixing
+                -- this upstream in #1271.
+                cmd = { "terraform-ls", "serve", "-log-file=/dev/null" },
+            },
         }
 
         if machine.is_freebsd() then
@@ -53,19 +52,18 @@ local plugin = {
             servers.rust_analyzer = nil
         end
 
-        local client_capabilities = vim.lsp.protocol.make_client_capabilities()
-        local capabilities = require("cmp_nvim_lsp").default_capabilities(
-            client_capabilities
-        )
-
         -- Global configuration that will be merged with server specific
         -- configs.
         local global_config = {
-            capabilities = capabilities,
+            capabilities = require("cmp_nvim_lsp").default_capabilities(
+                vim.lsp.protocol.make_client_capabilities()
+            ),
             flags = {
                 debounce_text_changes = 150,
             },
             on_attach = function(client, _bufnr)
+                -- Tokens from the LSP were overriding syntax highlighting in
+                -- Rust. Disable tokens from the server.
                 client.server_capabilities.semanticTokensProvider = nil
             end,
         }
