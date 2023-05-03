@@ -7,6 +7,7 @@ keymap.map("Q", "gq")
 
 -- Toggle line numbers
 keymap.nmap("<F11>", ":set invnumber<CR> :set list!<CR>")
+keymap.nmap("<Leader>=", ":set invnumber<CR> :set list!<CR>")
 
 -- Previous buffer
 keymap.nnoremap("<C-Left>", ":bprevious<CR>", { desc = "Previous buffer" })
