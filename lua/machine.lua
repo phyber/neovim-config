@@ -1,14 +1,15 @@
 -- Machine module
 -- Helpful information about the machine we're running on.
+local sysname = vim.loop.os_uname().sysname
 
 -- Return true if the system is FreeBSD
-local is_freebsd
-do
-    local freebsd = vim.loop.os_uname().sysname == "FreeBSD"
+local function is_freebsd()
+    return sysname == "FreeBSD"
+end
 
-    is_freebsd = function()
-        return freebsd
-    end
+-- Return true if the system is Linux
+local function is_linux()
+    return sysname == "Linux"
 end
 
 -- Return true if the system appears to be a Raspberry Pi
@@ -17,16 +18,19 @@ local is_raspberry_pi
 do
     local pi = false
 
-    local f = io.open("/proc/cpuinfo")
-    if f then
-        for line in f:lines() do
-            if line:find("Model", 1, true) then
-                pi = line:find("Raspberry Pi") ~= nil
-                break
+    -- No Pis that aren't Linux so far, but guard it anyway.
+    if is_linux() then
+        local f = io.open("/proc/cpuinfo")
+        if f then
+            for line in f:lines() do
+                if line:find("Model", 1, true) then
+                    pi = line:find("Raspberry Pi") ~= nil
+                    break
+                end
             end
-        end
 
-        f:close()
+            f:close()
+        end
     end
 
     is_raspberry_pi = function()
@@ -37,5 +41,6 @@ end
 -- Exposed API
 return {
     is_freebsd      = is_freebsd,
+    is_linux        = is_linux,
     is_raspberry_pi = is_raspberry_pi,
 }
