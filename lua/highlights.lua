@@ -31,7 +31,7 @@ local function set_highlights()
 end
 
 -- We can call this manually if needed
-api.nvim_create_user_command('SetHighlights', set_highlights, {
+api.nvim_create_user_command("SetHighlights", set_highlights, {
     desc = "Set Highlights",
     force = true,
 })
