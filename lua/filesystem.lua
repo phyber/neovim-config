@@ -14,9 +14,9 @@ local function is_directory(path)
     return fn.isdirectory(path) == 1
 end
 
--- Return true if given binary an be executed
-local function is_executable(binary)
-    return fn.executable(binary) == 1
+-- Return true if given path contains an executable file
+local function is_executable(path)
+    return fn.executable(path) == 1
 end
 
 -- Return true if a given path is a file.
