@@ -72,16 +72,16 @@ vim.o.undofile = true
 -- of them if they don't exist yet.
 do
     local filesystem = require "filesystem"
-    local basepath_fmt = fn.stdpath("config") .. "/scratch/%s"
+    local BASEPATH_FMT = fn.stdpath("config") .. "/scratch/%s"
 
-    local tmpdirs = {
+    local scratch_dirs = {
         backupdir = "backup",
         directory = "tmp",
         undodir = "undo",
     }
 
-    for dirtype, dir in pairs(tmpdirs) do
-        local path = basepath_fmt:format(dir)
+    for dirtype, dir in pairs(scratch_dirs) do
+        local path = BASEPATH_FMT:format(dir)
 
         if not filesystem.is_directory(path) then
             filesystem.mkdir(path)
