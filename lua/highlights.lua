@@ -22,9 +22,12 @@ local function set_highlights()
         ctermfg = "black",
     })
 
-    -- Don't highlight the whole line, only the line number.
-    -- This clears the CursorLine highlight.
-    highlight("CursorLine", {})
+    -- CursorLine is slow over SSH, disable it if we're connected that way.
+    if os.getenv("SSH_CONNECTION") then
+        -- Don't highlight the whole line, only the line number.
+        -- This clears the CursorLine highlight.
+        highlight("CursorLine", {})
+    end
 end
 
 -- We can call this manually if needed
