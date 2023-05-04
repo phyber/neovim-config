@@ -1,15 +1,15 @@
 -- Machine module
 -- Helpful information about the machine we're running on.
-local sysname = vim.loop.os_uname().sysname
+local SYSNAME = vim.loop.os_uname().sysname
 
 -- Return true if the system is FreeBSD
 local function is_freebsd()
-    return sysname == "FreeBSD"
+    return SYSNAME == "FreeBSD"
 end
 
 -- Return true if the system is Linux
 local function is_linux()
-    return sysname == "Linux"
+    return SYSNAME == "Linux"
 end
 
 -- Return true if the system appears to be a Raspberry Pi
