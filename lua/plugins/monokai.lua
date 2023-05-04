@@ -73,6 +73,11 @@ local plugin = {
                 },
             },
         })
+
+        -- Fire an event to hook some highlight things into
+        vim.api.nvim_exec_autocmds("User", {
+            pattern = "ColorSchemeLoaded",
+        })
     end,
 }
 
