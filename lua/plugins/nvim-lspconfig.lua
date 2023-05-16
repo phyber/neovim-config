@@ -34,12 +34,15 @@ local plugin = {
             rust_analyzer = {
                 cmd = { "rustup", "run", "stable", "rust-analyzer" },
             },
-            terraformls = {
-                -- terraform-ls sends a lot of output to stderr, not just
-                -- errors. Send all of its junk to /dev/null. They're fixing
-                -- this upstream in #1271.
-                cmd = { "terraform-ls", "serve", "-log-file=/dev/null" },
-            },
+            -- TerraformLS currently doesn't exit properly when nvim does, and
+            -- leaves behind many copies of itself burning CPU. Disable for
+            -- now.
+            --terraformls = {
+            --    -- terraform-ls sends a lot of output to stderr, not just
+            --    -- errors. Send all of its junk to /dev/null. They're fixing
+            --    -- this upstream in #1271.
+            --    cmd = { "terraform-ls", "serve", "-log-file=/dev/null" },
+            --},
         }
 
         if machine.is_freebsd() then
