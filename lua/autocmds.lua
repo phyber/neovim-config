@@ -1,5 +1,7 @@
 -- autocmds
 local util = require "util"
+local api = vim.api
+local fn = vim.fn
 
 util.create_augroups({
     vimrcEx = {
@@ -24,4 +26,15 @@ util.filetype_extensions({
     terraform = {
         "tfbackend",
     },
+})
+
+-- Start at line 1 of git commit messages, always.
+-- This prevents us from starting at a random location in the file, quite often
+-- in the default comments of the COMMIT_EDITMSG file.
+api.nvim_create_autocmd({ "BufEnter" }, {
+    desc = "Set cursor to first line in git commit messages",
+    pattern = "COMMIT_EDITMSG",
+    callback = function()
+        fn.setpos(".", {0, 1, 1, 0})
+    end,
 })
