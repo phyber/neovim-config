@@ -4,9 +4,6 @@ local plugin = {
     config = function()
         require("gitsigns").setup()
     end,
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
 }
 
 return plugin
