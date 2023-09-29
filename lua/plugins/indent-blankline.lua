@@ -1,13 +1,24 @@
 local plugin = {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
-        vim.cmd("highlight IndentBlanklineIndent1 guibg=#23272e gui=nocombine")
+        local ibl = require("ibl")
+        local hooks = require("ibl.hooks")
 
-        require("indent_blankline").setup({
-            char = " ",
+        hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+            vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", {
+                bg = "#23272e",
+            })
+        end)
 
-            char_highlight_list = {
-                "IndentBlanklineIndent1",
+        ibl.setup({
+            indent = {
+                char = " ",
+                highlight = {
+                    "IndentBlanklineIndent1",
+                },
+            },
+            scope = {
+                enabled = false,
             },
         })
     end,
