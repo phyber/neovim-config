@@ -23,11 +23,11 @@ local function create_augroups(groups)
 
         -- Add the events to the created group
         for _, input in pairs(content) do
-            local event = input[1]
+            local events = input[1]
             local pattern = input[2]
             local command = input[3]
 
-            api.nvim_create_autocmd({ event }, {
+            api.nvim_create_autocmd(events, {
                 group = group,
                 pattern = { pattern },
                 command = command,
@@ -51,7 +51,7 @@ local function filetype_extensions(types)
 
             groups[group_name] = {
                 {
-                    "BufRead,BufNewFile",
+                    { "BufRead", "BufNewFile" },
                     EXTENSION_FORMAT:format(extension),
                     FILETYPE_FORMAT:format(filetype),
                 }
