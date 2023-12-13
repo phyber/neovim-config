@@ -2,7 +2,11 @@
 local plugin = {
     "lewis6991/gitsigns.nvim",
     config = function()
-        require("gitsigns").setup()
+        local config = {
+            debug_mode = false,
+        }
+
+        require("gitsigns").setup(config)
     end,
 }
 
