@@ -44,17 +44,8 @@ local plugin = {
                     return disabled
                 end,
             },
-
-            -- Enable nvim-ts-rainbow
-            rainbow = {
-                enable = true,
-                extended_mode = false,
-            },
         })
     end,
-    dependencies = {
-        "mrjones2014/nvim-ts-rainbow",
-    },
 }
 
 return plugin
