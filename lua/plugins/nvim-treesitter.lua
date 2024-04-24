@@ -4,6 +4,7 @@
 local plugin = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    tag = "v0.9.2",
     cond = function()
         return require("util").nvim_has("nvim-0.6")
     end,
@@ -13,6 +14,7 @@ local plugin = {
         -- This table will be checked in the highlight.disable
         -- function.
         local highlight_ft_enabled = {
+            javascript = true,
             markdown = true,
         }
 
@@ -25,6 +27,7 @@ local plugin = {
 
             ensure_installed = {
                 "bash",
+                "javascript",
                 "lua",
                 "markdown",
                 "markdown_inline",

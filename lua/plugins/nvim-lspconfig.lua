@@ -30,6 +30,10 @@ local plugin = {
                     },
                 },
             },
+            puppet = {
+                cmd = { "puppet-languageserver", "--stdio", "--debug=STDOUT" },
+                filetypes = { "puppet" },
+            },
             ruff_lsp = {},
             rust_analyzer = {
                 cmd = { "rustup", "run", "stable", "rust-analyzer" },
@@ -86,6 +90,7 @@ local plugin = {
     end,
     dependencies = {
         "hrsh7th/nvim-cmp",
+        "williamboman/mason-lspconfig.nvim",
     },
 }
 

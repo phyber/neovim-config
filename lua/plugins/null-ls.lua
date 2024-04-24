@@ -10,6 +10,7 @@ local plugin = {
             sources = {
                 diagnostics.cfn_lint,
                 diagnostics.luacheck,
+                diagnostics.shellcheck,
                 diagnostics.yamllint,
                 formatting.goimports,
             },
