@@ -3,13 +3,13 @@ local vim = vim
 local api = vim.api
 local fn = vim.fn
 local lsp = vim.lsp
+local util = require("util")
 
 -- nvim function locals
 local defer_fn = vim.defer_fn
 local get_line_diagnostics = lsp.diagnostic.get_line_diagnostics
 local split = vim.split
 local nvim_echo = api.nvim_echo
-local nvim_get_option = api.nvim_get_option
 local nvim_win_get_buf = api.nvim_win_get_buf
 
 -- Constants
@@ -25,10 +25,30 @@ local KIND_ERROR = "error"
 local KIND_WARNING = "warning"
 local SHORT_LINE_LIMIT = 20
 
-local DIAGNOSTIC_SEVERITY_LIMIT_WARNING = {
-    severity_limit = "Warning",
-}
+-- Handle version differences here, such as deprecations, etc.
+local nvim_get_option_value
+local DIAGNOSTIC_SEVERITY_LIMIT_WARNING
+do
+    if util.nvim_has("nvim-0.10") then
+        nvim_get_option_value = api.nvim_get_option_value
 
+        DIAGNOSTIC_SEVERITY_LIMIT_WARNING = {
+            min = "Warning",
+        }
+    else
+        -- Wrap this for the older API. Can be removed once all nvim we use is
+        -- on 0.10+
+        nvim_get_option_value = function(name, ignored)
+            return api.nvim_get_option(name)
+        end
+
+        DIAGNOSTIC_SEVERITY_LIMIT_WARNING = {
+            severity_limit = "Warning",
+        }
+    end
+end
+
+-- We attach some methods to this down below.
 local line_diagnostics = {
     bufnr = -1,
     echoed = false,
@@ -69,7 +89,7 @@ local function message_from_diagnostics(diagnostics)
         message = FMT_MESSAGE_LINES:format(message, lines[2])
     end
 
-    local width = nvim_get_option("columns") - 15
+    local width = nvim_get_option_value("columns", {}) - 15
 
     -- If the message is longer than the width we want, truncate it
     if width > 0 and #message >= width then
