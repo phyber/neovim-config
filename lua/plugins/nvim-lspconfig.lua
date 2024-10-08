@@ -8,6 +8,7 @@ local plugin = {
 
         -- Table of servers and their config, if any.
         local servers = {
+            gopls = {},
             lua_ls = {
                 settings = {
                     Lua = {
