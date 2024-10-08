@@ -88,6 +88,17 @@ local plugin = {
 
             lspconfig[lsp].setup(config)
         end
+
+        -- Create a keybinding for getting function definitions from the LSP
+        local group = vim.api.nvim_create_augroup("UserLspConfig", {})
+        vim.api.nvim_create_autocmd("LspAttach", {
+            group = group,
+            callback = function(ev)
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition, {
+                    buffer = ev.buf,
+                })
+            end,
+        })
     end,
     dependencies = {
         "hrsh7th/nvim-cmp",
