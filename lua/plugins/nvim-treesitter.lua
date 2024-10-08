@@ -34,6 +34,7 @@ local plugin = {
                 "regex",
                 "rust",
                 "vim",
+                "vimdoc",
             },
 
             highlight = {
