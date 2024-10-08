@@ -35,6 +35,7 @@ api.nvim_create_autocmd({ "BufEnter" }, {
     desc = "Set cursor to first line in git commit messages",
     pattern = "COMMIT_EDITMSG",
     callback = function()
+        -- table args are: {bufnum, linenum, column, off}
         fn.setpos(".", {0, 1, 1, 0})
     end,
 })

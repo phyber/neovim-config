@@ -1,9 +1,10 @@
 -- Highlights
 local api = vim.api
+local GLOBAL_HIGHLIGHT_GROUP = 0
 
 -- Quick wrapper because everything we're doing is global.
 local function highlight(group, val)
-    api.nvim_set_hl(0, group, val)
+    api.nvim_set_hl(GLOBAL_HIGHLIGHT_GROUP, group, val)
 end
 
 -- Called when our event is fired.

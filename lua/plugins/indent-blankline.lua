@@ -3,11 +3,15 @@ local plugin = {
     config = function()
         local ibl = require("ibl")
         local hooks = require("ibl.hooks")
+        local GLOBAL_HIGHLIGHT_GROUP = 0
 
         hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-            vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", {
-                bg = "#23272e",
-            })
+            vim.api.nvim_set_hl(
+                GLOBAL_HIGHLIGHT_GROUP,
+                "IndentBlanklineIndent1", {
+                    bg = "#23272e",
+                }
+            )
         end)
 
         ibl.setup({
