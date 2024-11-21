@@ -35,7 +35,7 @@ local plugin = {
                 cmd = { "puppet-languageserver", "--stdio", "--debug=STDOUT" },
                 filetypes = { "puppet" },
             },
-            ruff_lsp = {},
+            ruff = {},
             rust_analyzer = {
                 cmd = { "rustup", "run", "stable", "rust-analyzer" },
             },
