@@ -24,3 +24,8 @@ exclude_files = {
     "plugin/packer_compiled.lua",
     "scratch/*",
 }
+
+ignore = {
+    -- Ignore variables prefixed with an _
+    "21/_.*",
+}
