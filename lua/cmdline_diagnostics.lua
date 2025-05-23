@@ -2,18 +2,15 @@
 local vim = vim
 local api = vim.api
 local fn = vim.fn
-local lsp = vim.lsp
 local util = require("util")
 
 -- nvim function locals
 local defer_fn = vim.defer_fn
-local get_line_diagnostics = lsp.diagnostic.get_line_diagnostics
 local split = vim.split
 local nvim_echo = api.nvim_echo
 local nvim_win_get_buf = api.nvim_win_get_buf
 
 -- Constants
-local DIAGNOSTIC_SEVERITY_ERROR = lsp.protocol.DiagnosticSeverity.Error
 local ECHO_TIMEOUT_MS = 250
 local EMPTY_TABLE = {}
 local FMT_CHUNK_KIND = "%s: "
@@ -25,8 +22,12 @@ local KIND_ERROR = "error"
 local KIND_WARNING = "warning"
 local SHORT_LINE_LIMIT = 20
 
+-- Line diagnostics changed in nvim 0.11
+
 -- Handle version differences here, such as deprecations, etc.
+local get_line_diagnostics
 local nvim_get_option_value
+local DIAGNOSTIC_SEVERITY_ERROR
 local DIAGNOSTIC_SEVERITY_LIMIT_WARNING
 do
     if util.nvim_has("nvim-0.10") then
@@ -45,6 +46,27 @@ do
         DIAGNOSTIC_SEVERITY_LIMIT_WARNING = {
             severity_limit = "Warning",
         }
+    end
+
+    if util.nvim_has("nvim-0.11") then
+        DIAGNOSTIC_SEVERITY_ERROR = vim.diagnostic.severity.ERROR
+
+        DIAGNOSTIC_SEVERITY_LIMIT_WARNING = {
+            min = vim.diagnostic.severity.WARN,
+        }
+
+        get_line_diagnostics = function(bufnr, line, severity)
+            return vim.diagnostic.get(bufnr, {
+                lnum = line,
+                severity = severity,
+            })
+        end
+    else
+        DIAGNOSTIC_SEVERITY_ERROR = lsp.protocol.DiagnosticSeverity.Error
+
+        get_line_diagnostics = function(bufnr, line, severity)
+            return lsp.diagnostic.get_line_diagnostics(bufnr, line, severity)
+        end
     end
 end
 
