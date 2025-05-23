@@ -37,6 +37,7 @@ vim.o.incsearch = true
 
 -- Disable mouse support
 vim.o.mouse = ""
+vim.o.mousescroll = "hor:0,ver:0"
 
 -- Line numbers
 vim.o.number = true
