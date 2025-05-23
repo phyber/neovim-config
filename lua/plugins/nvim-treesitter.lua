@@ -4,7 +4,7 @@
 local plugin = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    tag = "v0.9.2",
+    tag = "v0.9.3",
     cond = function()
         return require("util").nvim_has("nvim-0.6")
     end,
@@ -23,6 +23,8 @@ local plugin = {
         local sync_install = require("machine").is_raspberry_pi()
 
         require("nvim-treesitter.configs").setup({
+            auto_install = false,
+            ignore_install = {},
             sync_install = sync_install,
 
             ensure_installed = {
