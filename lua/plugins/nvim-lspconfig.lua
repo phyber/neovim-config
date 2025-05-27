@@ -2,9 +2,28 @@
 local plugin = {
     "neovim/nvim-lspconfig",
     config = function()
-        local lspconfig = require("lspconfig")
         local machine = require("machine")
         local vim = vim
+
+        -- Choose an appropriate method of enabling LSP servers depending on
+        -- the Neovim version being used.
+        local enable_lsp_with_config
+        do
+            local util = require("util")
+
+            if util.nvim_has("nvim-0.11") then
+                enable_lsp_with_config = function(lsp, config)
+                    vim.lsp.config(lsp, config)
+                    vim.lsp.enable(lsp)
+                end
+            else
+                local lspconfig = require("lspconfig")
+
+                enable_lsp_with_config = function(lsp, config)
+                    lspconfig[lsp].setup(config)
+                end
+            end
+        end
 
         -- Table of servers and their config, if any.
         local servers = {
@@ -20,13 +39,19 @@ local plugin = {
                         },
                         runtime = {
                             version = "LuaJIT",
+                            path = {
+                                "lua/?.lua",
+                                "lua/?/init.lua",
+                            },
                         },
                         telemetry = {
                             enable = false,
                         },
                         workspace = {
                             checkThirdParty = false,
-                            library = vim.api.nvim_get_runtime_file("", true),
+                            library = {
+                                vim.env.VIMRUNTIME,
+                            },
                         },
                     },
                 },
@@ -86,7 +111,7 @@ local plugin = {
                 global_config
             )
 
-            lspconfig[lsp].setup(config)
+            enable_lsp_with_config(lsp, config)
         end
 
         -- Create a keybinding for getting function definitions from the LSP
